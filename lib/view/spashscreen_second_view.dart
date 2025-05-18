@@ -92,12 +92,12 @@ class _SpashscreenSecondViewState extends State<SpashscreenSecondView> {
                     ),
 
                     onPressed: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const RegistrationView(),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegistrationView(),
+                        ),
+                      );
                     },
                     child: const Text(
                       'Sign up',
