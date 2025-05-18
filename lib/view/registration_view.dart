@@ -102,12 +102,12 @@ class _RegistrationViewState extends State<RegistrationView> {
                       ),
 
                       onPressed: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const LoginView(),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginView(),
+                          ),
+                        );
                       },
                       child: const Text(
                         'Sign up',
