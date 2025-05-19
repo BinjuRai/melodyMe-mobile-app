@@ -8,23 +8,23 @@ class DashboardView extends StatefulWidget {
 }
 
 class _DashboardViewState extends State<DashboardView> {
-  // Sample data
+ 
   final List<Map<String, String>> instruments = [
-    {'image': 'assets/guitard.png', 'label': 'Guitar'},
-    {'image': 'assets/keysd.png', 'label': 'Keyboard'},
-    {'image': 'assets/guitard.png', 'label': 'Guitar'},
-    {'image': 'assets/keysd.png', 'label': 'Keyboard'},
+    {'image': 'assets/images/guitard.png', 'label': 'Guitar'},
+    {'image': 'assets/images/keysd.png', 'label': 'Keyboard'},
+    {'image': 'assets/images/guitard.png', 'label': 'Guitar'},
+    {'image': 'assets/images/keysd.png', 'label': 'Keyboard'},
   ];
 
   final List<Map<String, String>> courses = [
     {'image': 'assets/mic.png', 'title': 'Vocal Classes for Beginners'},
     {
-      'image': 'assets/splashscreen_img1.png',
+      'image': 'assets/images/splashscreen_img1.png',
       'title': 'Keyboard Classes for Beginners',
     },
-    {'image': 'assets/mic.png', 'title': 'Vocal Classes for Beginners'},
+    {'image': 'assets/images/mic.png', 'title': 'Vocal Classes for Beginners'},
     {
-      'image': 'assets/splashscreen_img1.png',
+      'image': 'assets/images/splashscreen_img1.png',
       'title': 'Keyboard Classes for Beginners',
     },
   ];
@@ -107,7 +107,7 @@ class _DashboardViewState extends State<DashboardView> {
               ),
               SizedBox(height: 20),
 
-              // Our Courses
+              
               Text(
                 'Our Courses',
                 style: TextStyle(
@@ -118,7 +118,7 @@ class _DashboardViewState extends State<DashboardView> {
               ),
               SizedBox(height: 10),
 
-              // Courses list
+             
               Expanded(
                 child: ListView.builder(
                   itemCount: courses.length,
