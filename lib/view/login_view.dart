@@ -1,4 +1,6 @@
-import 'package:batch34_b/view/dashboard_view.dart';
+import 'package:batch34_b/bottom_screen/dashboard.dart';
+import 'package:batch34_b/bottom_screen/home.dart';
+
 import 'package:flutter/material.dart';
 
 class LoginView extends StatefulWidget {
@@ -86,7 +88,7 @@ class _LoginViewState extends State<LoginView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const DashboardView(),
+                          builder: (context) => const DashboardScreen(),
                         ),
                       );
                     },
