@@ -1,36 +1,35 @@
 import 'package:flutter/material.dart';
 
-class DashboardView extends StatefulWidget {
-  const DashboardView({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<DashboardView> createState() => _DashboardViewState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _DashboardViewState extends State<DashboardView> {
- 
-  // final List<Map<String, String>> instruments = [
-  //   {'image': 'assets/images/guitard.png', 'label': 'Guitar'},
-  //   {'image': 'assets/images/keysd.png', 'label': 'Keyboard'},
-  //   {'image': 'assets/images/guitard.png', 'label': 'Guitar'},
-  //   {'image': 'assets/images/keysd.png', 'label': 'Keyboard'},
-  // ];
+class _HomeScreenState extends State<HomeScreen> {
+  final List<Map<String, String>> instruments = [
+    {'image': 'assets/images/guitard.png', 'label': 'Guitar'},
+    {'image': 'assets/images/keysd.png', 'label': 'Keyboard'},
+    {'image': 'assets/images/guitard.png', 'label': 'Guitar'},
+    {'image': 'assets/images/keysd.png', 'label': 'Keyboard'},
+  ];
 
-  // final List<Map<String, String>> courses = [
-  //   {'image': 'assets/mic.png', 'title': 'Vocal Classes for Beginners'},
-  //   {
-  //     'image': 'assets/images/splashscreen_img1.png',
-  //     'title': 'Keyboard Classes for Beginners',
-  //   },
-  //   {'image': 'assets/images/mic.png', 'title': 'Vocal Classes for Beginners'},
-  //   {
-  //     'image': 'assets/images/splashscreen_img1.png',
-  //     'title': 'Keyboard Classes for Beginners',
-  //   },
-  // ];
-
+  final List<Map<String, String>> courses = [
+    {'image': 'assets/mic.png', 'title': 'Vocal Classes for Beginners'},
+    {
+      'image': 'assets/images/splashscreen_img1.png',
+      'title': 'Keyboard Classes for Beginners',
+    },
+    {'image': 'assets/images/mic.png', 'title': 'Vocal Classes for Beginners'},
+    {
+      'image': 'assets/images/splashscreen_img1.png',
+      'title': 'Keyboard Classes for Beginners',
+    },
+  ];
   @override
   Widget build(BuildContext context) {
+    // return const Center(child: Text('Home'));
     return Scaffold(
       backgroundColor: Color(0xFF1B1D3C),
       body: SafeArea(
@@ -39,23 +38,23 @@ class _DashboardViewState extends State<DashboardView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // App bar
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'MelodyMe',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontFamily: 'Comic Sans MS',
-                    ),
-                  ),
-                  Icon(Icons.menu, color: Colors.white),
-                ],
-              ),
-              SizedBox(height: 16),
+              // // App bar
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text(
+              //       'MelodyMe',
+              //       style: TextStyle(
+              //         fontSize: 28,
+              //         fontWeight: FontWeight.bold,
+              //         color: Colors.white,
+              //         fontFamily: 'Comic Sans MS',
+              //       ),
+              //     ),
+              //     Icon(Icons.menu, color: Colors.white),
+              //   ],
+              // ),
+              // SizedBox(height: 16),
 
               // Search bar
               TextField(
@@ -107,7 +106,6 @@ class _DashboardViewState extends State<DashboardView> {
               ),
               SizedBox(height: 20),
 
-              
               Text(
                 'Our Courses',
                 style: TextStyle(
@@ -118,7 +116,6 @@ class _DashboardViewState extends State<DashboardView> {
               ),
               SizedBox(height: 10),
 
-             
               Expanded(
                 child: ListView.builder(
                   itemCount: courses.length,
