@@ -1,6 +1,5 @@
-import 'package:batch34_b/view/login_view.dart';
-import 'package:batch34_b/view/registration_view.dart';
-import 'package:batch34_b/view/spashscreen_second_view.dart';
+
+import 'package:batch34_b/theme/theme_data.dart';
 import 'package:batch34_b/view/splashscreen_view.dart';
 
 import 'package:flutter/material.dart';
@@ -11,6 +10,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: getApplicationTheme(),
       debugShowCheckedModeBanner: false,
       home: SplashscreenView(),
     );
