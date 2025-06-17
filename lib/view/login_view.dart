@@ -1,5 +1,4 @@
 import 'package:batch34_b/bottom_screen/dashboard.dart';
-import 'package:batch34_b/bottom_screen/home.dart';
 
 import 'package:flutter/material.dart';
 
@@ -42,10 +41,9 @@ class _LoginViewState extends State<LoginView> {
                   const Text(
                     'MelodyMe',
                     style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 36,
                       color: Colors.white,
-                      fontFamily: 'Bagel Fat One',
+                      fontFamily: 'Bagel_Fat_One',
                     ),
                   ),
                   const SizedBox(height: 32),
@@ -54,6 +52,7 @@ class _LoginViewState extends State<LoginView> {
                       filled: true,
                       fillColor: Colors.white,
                       hintText: 'Email address',
+                      labelText: 'Email address',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -66,6 +65,7 @@ class _LoginViewState extends State<LoginView> {
                       filled: true,
                       fillColor: Colors.white,
                       hintText: 'Password',
+                      labelText: 'Password',
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -84,6 +84,7 @@ class _LoginViewState extends State<LoginView> {
                       backgroundColor: Colors.white,
                       foregroundColor: const Color(0xFF222740),
                     ),
+
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -92,7 +93,13 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       );
                     },
-                    child: const Text('Login'),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        fontFamily: 'Playfair_Display',
+                        color: const Color.fromARGB(255, 11, 27, 42),
+                      ),
+                    ),
                   ),
                 ],
               ),

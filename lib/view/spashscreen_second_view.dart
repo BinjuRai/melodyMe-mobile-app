@@ -39,19 +39,23 @@ class _SpashscreenSecondViewState extends State<SpashscreenSecondView> {
                 children: [
                   const Text(
                     'WELCOME TO',
-                    style: TextStyle(fontSize: 20, color: Color(0xFF222740)),
+                    style: TextStyle(
+                      fontFamily: 'Playfair_Display',
+                      fontSize: 21,
+                      color: Color(0xFF222740),
+                    ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 2),
                   const Text(
                     'MelodyMe',
                     style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 36,
+
                       color: Color(0xFF222740),
-                      fontFamily: 'Bagel Fat One',
+                      fontFamily: 'Bagel_Fat_One',
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 25),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF222740),
@@ -75,7 +79,10 @@ class _SpashscreenSecondViewState extends State<SpashscreenSecondView> {
                     },
                     child: const Text(
                       'Login',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                        fontFamily: 'Playfair_Display',
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 16),
