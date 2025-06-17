@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 ThemeData getApplicationTheme() {
   return ThemeData(
     useMaterial3: false,
-    primarySwatch: Colors.lightBlue,
+    primarySwatch: Colors.blueGrey,
     scaffoldBackgroundColor: Colors.white,
     fontFamily: 'Playfair_Display',
 

@@ -1,8 +1,8 @@
-import 'package:batch34_b/bottom_screen/about.dart';
-import 'package:batch34_b/bottom_screen/cart.dart';
+import 'package:batch34_b/bottom_screen/explore.dart';
 import 'package:batch34_b/bottom_screen/home.dart';
+import 'package:batch34_b/bottom_screen/mycourse.dart';
 import 'package:batch34_b/bottom_screen/profile.dart';
-import 'package:batch34_b/theme/theme_data.dart';
+
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -17,9 +17,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   List<Widget> lstBottomScreen = [
     const HomeScreen(),
-    const CartScreen(),
-    const ProfileScreen(),
-    const AboutScreen(),
+    const ExploreScreen(),
+    const Mycourse(),
+    const Profile(),
   ];
 
   @override
@@ -38,12 +38,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: 'Cart',
+            icon: Icon(Icons.library_music, size: 26.0),
+            label: 'Explore',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.info_outline),
-            label: 'About',
+            icon: Icon(Icons.chrome_reader_mode, size: 26.0),
+            label: 'My courses',
           ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],

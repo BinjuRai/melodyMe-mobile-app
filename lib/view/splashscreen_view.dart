@@ -1,5 +1,5 @@
-import 'package:batch34_b/view/spashscreen_second_view.dart';
 import 'package:flutter/material.dart';
+import 'package:batch34_b/view/spashscreen_second_view.dart';
 
 class SplashscreenView extends StatefulWidget {
   const SplashscreenView({super.key});
@@ -16,8 +16,8 @@ class _SplashscreenViewState extends State<SplashscreenView> {
       body: SafeArea(
         child: Column(
           children: [
-            Expanded(
-              flex: 2,
+            Flexible(
+              flex: 3,
               child: ClipRRect(
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(30),
@@ -25,47 +25,95 @@ class _SplashscreenViewState extends State<SplashscreenView> {
                 ),
                 child: Image.asset(
                   'assets/images/splashscreen_img1.png',
+
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            const SizedBox(height: 40),
-            const Text(
-              'MelodyMe',
-              style: TextStyle(
-                fontSize: 32,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Bagel Fat One', 
+
+            Flexible(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // const Text(
+                    //   'MelodyMe',
+                    //   style: TextStyle(
+                    //     fontSize: 36,
+                    //     color: Colors.white,
+                    //     fontFamily: 'Bagel_Fat_One',
+                    //   ),
+                    // ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Image.asset(
+                          'assets/images/melodymelogo.png',
+                          width: 65,
+                          fit: BoxFit.contain,
+                        ),
+                        Image.asset(
+                          'assets/images/splashscreen_img1.png',
+                          width: 45,
+                          fit: BoxFit.contain,
+                        ),
+                        // const SizedBox(height: 30),
+                        Image.asset(
+                          'assets/images/splashscreen_img1.png',
+                          width: 35,
+                          fit: BoxFit.contain,
+                        ),
+                        Image.asset(
+                          'assets/images/splashscreen_img1.png',
+                          width: 45,
+                          fit: BoxFit.contain,
+                        ),
+                        // const SizedBox(height: 30),
+                        Image.asset(
+                          'assets/images/melodymelogo.png',
+                          width: 65,
+                          fit: BoxFit.contain,
+                        ),
+                        // const SizedBox(height: 30),
+                      
+                      ],
+                    ),
+                
+                    const SizedBox(height: 30),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: const Color(0xFF222740),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 32,
+                          vertical: 14,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        elevation: 6,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SpashscreenSecondView(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Let's Start",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: const Color(0xFF222740),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 32,
-                  vertical: 14,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                elevation: 6,
-              ),
-             
-              onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SpashscreenSecondView(),
-      ),
-    );
-  },
-              child: const Text("Let's Start", style: TextStyle(fontSize: 16)),
-            ),
-            const Spacer(),
           ],
         ),
       ),
