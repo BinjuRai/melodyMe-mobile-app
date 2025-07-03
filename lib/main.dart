@@ -3,7 +3,9 @@
 import 'package:batch34_b/app.dart';
 import 'package:batch34_b/app/service_locator/service_locator.dart';
 import 'package:batch34_b/core/network/hive_service.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,3 +16,4 @@ void main() async {
   await HiveService().clearAll();
   runApp(App());
 }
+

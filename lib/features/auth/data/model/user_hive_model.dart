@@ -17,7 +17,7 @@ class UserHiveModel extends Equatable {
   @HiveField(1)
   final String username;
   @HiveField(2)
-  final String phone;
+  final String phoneno;
   @HiveField(3)
   final String email;
   @HiveField(4)
@@ -29,7 +29,7 @@ class UserHiveModel extends Equatable {
     String? userId,
     required this.username,
     this.image,
-    required this.phone,
+    required this.phoneno,
     // required this.batch,
     // required this.courses,
     required this.email,
@@ -41,7 +41,7 @@ class UserHiveModel extends Equatable {
     : userId='',
     image = '',
       username = '',
-      phone = '',
+      phoneno = '',
       email = '',
       password = '';
 
@@ -51,7 +51,7 @@ class UserHiveModel extends Equatable {
       userId: entity.userId,
       image: entity.image,
       username: entity.username,
-      phone: entity.phone,
+      phoneno: entity.phoneno,
       email: entity.email,
       password: entity.password,
     );
@@ -63,12 +63,12 @@ class UserHiveModel extends Equatable {
       userId:userId,
       image: image,
       username: username,
-      phone: phone,
+      phoneno: phoneno,
       email: email,
       password: password,
     );
   }
 
   @override
-  List<Object?> get props => [ userId,image,  phone, username, email, password];
+  List<Object?> get props => [ userId,image,  phoneno, username, email, password];
 }

@@ -1,4 +1,5 @@
 import 'package:batch34_b/app/service_locator/service_locator.dart';
+import 'package:batch34_b/bottom_screen/dashboard.dart';
 
 import 'package:batch34_b/core/common/snack_bar/snack_bar.dart';
 import 'package:batch34_b/features/auth/domain/use_case/user_login_usecase.dart';
@@ -43,9 +44,6 @@ class LoginViewModel extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  
-
-
   void _onLoginWithEmailAndPassword(
     LoginWithEmailAndPasswordEvent event,
     Emitter<LoginState> emit,
@@ -57,24 +55,23 @@ class LoginViewModel extends Bloc<LoginEvent, LoginState> {
 
     result.fold(
       (failure) {
-        // Handle failure case
         emit(state.copyWith(isLoading: false, isSuccess: false));
 
         showMySnackBar(
           context: event.context,
-         
           message: 'Invalid credentials. Please try again.',
           color: Colors.red,
-         
         );
       },
       (token) {
-        // Handle success case
         emit(state.copyWith(isLoading: false, isSuccess: true));
-        add(NavigateToHomeViewEvent(context: event.context));
+        if (event.context.mounted) {
+          Navigator.pushReplacement(
+            event.context,
+            MaterialPageRoute(builder: (_) => DashboardScreen()),
+          );
+        }
       },
     );
   }
 }
-
-

@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterViewModel extends Bloc<RegisterEvent, RegisterState> {
-  // final BatchViewModel _batchViewModel;
-  // final CourseViewModel _courseViewModel;
+  
   final UserRegisterUsecase _userRegisterUsecase;
   final UploadImageUsecase _uploadImageUsecase;
 
@@ -40,7 +39,7 @@ class RegisterViewModel extends Bloc<RegisterEvent, RegisterState> {
     final result = await _userRegisterUsecase(
       RegisterUserParams(
         username: event.username,
-        phone: event.phone,
+        phoneno: event.phone,
         email: event.email,
         password: event.password,
         image: state.imageName,
