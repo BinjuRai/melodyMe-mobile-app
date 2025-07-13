@@ -11,9 +11,13 @@ class RegisterState extends Equatable {
     this.imageName,
   });
 
-  const RegisterState.initial()
+  // const RegisterState.initial()
+  //   : isLoading = false,
+  //     isSuccess = false,
+  //     imageName = null;
+   const RegisterState.initial()
     : isLoading = false,
-      isSuccess = false,
+      isSuccess = true,
       imageName = null;
 
   RegisterState copyWith({

@@ -52,6 +52,9 @@ dependencies:
   permission_handler: ^12.0.0+1
   json_serializable: ^6.9.0
   provider: ^6.1.5
+  mocktail: ^1.0.4
+  bloc_test: ^10.0.0
+  test_cov_console: ^0.2.2
 
 
 dev_dependencies:

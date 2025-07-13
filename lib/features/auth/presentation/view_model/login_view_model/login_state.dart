@@ -6,7 +6,8 @@ class LoginState extends Equatable {
 
   const LoginState({required this.isLoading, required this.isSuccess});
 
-  const LoginState.initial() : isLoading = false, isSuccess = false;
+  // const LoginState.initial() : isLoading = false, isSuccess = false;
+  const LoginState.initial() : isLoading = true, isSuccess = true;
 
   LoginState copyWith({bool? isLoading, bool? isSuccess}) {
     return LoginState(
