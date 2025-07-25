@@ -2,6 +2,8 @@ import 'package:batch34_b/bottom_screen/explore.dart';
 import 'package:batch34_b/bottom_screen/home.dart';
 import 'package:batch34_b/bottom_screen/mycourse.dart';
 import 'package:batch34_b/bottom_screen/profile.dart';
+import 'package:batch34_b/features/course/presentation/view/%20courselistpage_view.dart';
+import 'package:batch34_b/features/lesson/presentation/view/lesson_view.dart';
 
 import 'package:flutter/material.dart';
 
@@ -18,8 +20,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   List<Widget> lstBottomScreen = [
     const HomeScreen(),
     const ExploreScreen(),
-    const Mycourse(),
+    const CourseListPage(),
     const Profile(),
+    const LessonView(), // Assuming you have a LessonView widget for lessons
   ];
 
   @override
@@ -39,13 +42,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
             icon: Icon(Icons.library_music, size: 26.0),
-            label: 'Explore',
+            label: 'Wishlist',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chrome_reader_mode, size: 26.0),
             label: 'My courses',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chrome_reader_mode, size: 26.0),
+            label: 'Lessons',
+          ),
         ],
         backgroundColor: const Color.fromARGB(255, 11, 27, 42),
         selectedItemColor: Colors.white,

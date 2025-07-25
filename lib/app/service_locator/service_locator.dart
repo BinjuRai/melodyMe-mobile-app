@@ -1,10 +1,18 @@
-import 'package:batch34_b/features/splash/presentation/view_model/splashscreen_view_model.dart';
+import 'package:batch34_b/features/lesson/data/data_source/lesson_data_source.dart';
+
+import 'package:batch34_b/features/lesson/data/repository/lesson_repository_impl.dart';
+import 'package:batch34_b/features/lesson/domain/repository/lesson_repository.dart';
+import 'package:batch34_b/features/lesson/domain/usecase/get_all_lesson_usecase.dart';
+import 'package:batch34_b/features/lesson/presentation/view_model/lesson_view_model.dart';
 import 'package:get_it/get_it.dart';
-import 'package:batch34_b/features/splash/presentation/view_model/splash_view_model.dart';
-import 'package:batch34_b/app/share_pref/token_shared_pref.dart';
-// import 'package:batch34_b/bottom_screen/dashboard.dart';
+import 'package:dio/dio.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:batch34_b/core/network/api_service.dart';
 import 'package:batch34_b/core/network/hive_service.dart';
+import 'package:batch34_b/app/share_pref/token_shared_pref.dart';
+
 import 'package:batch34_b/features/auth/data/data_source/local_datasource/user_local_datasource.dart';
 import 'package:batch34_b/features/auth/data/data_source/remote_datasource/user_remote_datasource.dart';
 import 'package:batch34_b/features/auth/data/repository/local_repository/user_local_repository.dart';
@@ -15,10 +23,20 @@ import 'package:batch34_b/features/auth/domain/use_case/user_login_usecase.dart'
 import 'package:batch34_b/features/auth/domain/use_case/user_register_usecase.dart';
 import 'package:batch34_b/features/auth/presentation/view_model/login_view_model/login_view_model.dart';
 import 'package:batch34_b/features/auth/presentation/view_model/register_view_model/register_view_model.dart';
-import 'package:batch34_b/features/home/presentation/view_model/home_view_model.dart';
-import 'package:dio/dio.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:batch34_b/features/home/presentation/view_model/home_view_model.dart';
+import 'package:batch34_b/features/splash/presentation/view_model/splashscreen_view_model.dart';
+
+import 'package:batch34_b/features/course/data/data_source/remote_datasource/course_remote_datasource.dart';
+import 'package:batch34_b/features/course/data/repository/course_repository_impl.dart';
+import 'package:batch34_b/features/course/domain/repository/course_repository.dart';
+import 'package:batch34_b/features/course/domain/usecase/get_all_courses.dart';
+import 'package:batch34_b/features/course/presentation/view_model/course_view_model.dart';
+
+import 'package:batch34_b/features/lesson/data/data_source/lesson_data_source.dart'
+    as lesson_ds;
+import 'package:batch34_b/features/lesson/data/data_source/remote_datasource/lesson_remote_datasource.dart'
+    as remote_ds;
 
 final serviceLocator = GetIt.instance;
 
@@ -29,21 +47,26 @@ Future<void> initDependencies() async {
   await _initAuthModule();
   await _initHomeModule();
   await _initSplashModule();
-}
-
-Future<void> _initApiService() async {
-  serviceLocator.registerLazySingleton(() => ApiService(Dio()));
+  await _initCourseModule();
+  await _initLessonModule();
 }
 
 Future<void> _initHiveService() async {
-  serviceLocator.registerLazySingleton(() => HiveService());
+  serviceLocator.registerLazySingleton<HiveService>(() => HiveService());
+}
+
+Future<void> _initApiService() async {
+  serviceLocator.registerLazySingleton<Dio>(() => Dio());
+  serviceLocator.registerLazySingleton<ApiService>(
+    () => ApiService(serviceLocator<Dio>()),
+  );
 }
 
 Future<void> _initSharedPrefs() async {
-  // Initialize Shared Preferences if needed
   final sharedPrefs = await SharedPreferences.getInstance();
-  serviceLocator.registerLazySingleton(() => sharedPrefs);
-  serviceLocator.registerLazySingleton(
+  serviceLocator.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
+
+  serviceLocator.registerLazySingleton<TokenSharedPrefs>(
     () => TokenSharedPrefs(
       sharedPreferences: serviceLocator<SharedPreferences>(),
     ),
@@ -51,153 +74,147 @@ Future<void> _initSharedPrefs() async {
 }
 
 Future<void> _initAuthModule() async {
-  // Data Source
-  serviceLocator.registerFactory(
+  // Data Sources
+  serviceLocator.registerFactory<UserLocalDatasource>(
     () => UserLocalDatasource(hiveService: serviceLocator<HiveService>()),
   );
-
-  serviceLocator.registerFactory(
+  serviceLocator.registerFactory<UserRemoteDatasource>(
     () => UserRemoteDatasource(apiService: serviceLocator<ApiService>()),
   );
 
-  // Repository
-
-  serviceLocator.registerFactory(
+  // Repositories
+  serviceLocator.registerFactory<UserLocalRepository>(
     () => UserLocalRepository(
       userLocalDatasource: serviceLocator<UserLocalDatasource>(),
     ),
   );
-
-  serviceLocator.registerFactory(
+  serviceLocator.registerFactory<UserRemoteRepository>(
     () => UserRemoteRepository(
-     userRemoteDataSource: serviceLocator<UserRemoteDatasource>(),
+      userRemoteDataSource: serviceLocator<UserRemoteDatasource>(),
     ),
   );
 
-  // Usecases
-  serviceLocator.registerFactory(
+  // Use Cases
+  serviceLocator.registerFactory<UserLoginUsecase>(
     () => UserLoginUsecase(
       userRepository: serviceLocator<UserRemoteRepository>(),
       tokenSharedPrefs: serviceLocator<TokenSharedPrefs>(),
     ),
   );
-
-  serviceLocator.registerFactory(
+  serviceLocator.registerFactory<UserRegisterUsecase>(
     () => UserRegisterUsecase(
       userRepository: serviceLocator<UserRemoteRepository>(),
     ),
   );
-
-  serviceLocator.registerFactory(
+  serviceLocator.registerFactory<UploadImageUsecase>(
     () => UploadImageUsecase(
       userRepository: serviceLocator<UserRemoteRepository>(),
     ),
   );
-
-  serviceLocator.registerFactory(
+  serviceLocator.registerFactory<UserGetCurrentUsecase>(
     () => UserGetCurrentUsecase(
       userRepository: serviceLocator<UserRemoteRepository>(),
     ),
   );
 
-  serviceLocator.registerFactory(
+  // ViewModels
+  serviceLocator.registerFactory<RegisterViewModel>(
     () => RegisterViewModel(
-    
       serviceLocator<UserRegisterUsecase>(),
       serviceLocator<UploadImageUsecase>(),
     ),
   );
-
-  // Register LoginViewModel WITHOUT HomeViewModel to avoid circular dependency
-  serviceLocator.registerFactory(
+  serviceLocator.registerFactory<LoginViewModel>(
     () => LoginViewModel(serviceLocator<UserLoginUsecase>()),
   );
 }
 
 Future<void> _initHomeModule() async {
-  serviceLocator.registerFactory(
+  serviceLocator.registerFactory<HomeViewModel>(
     () => HomeViewModel(loginViewModel: serviceLocator<LoginViewModel>()),
   );
 }
 
 Future<void> _initSplashModule() async {
-  serviceLocator.registerFactory(() => SplashscreenViewModel());
+  serviceLocator.registerFactory<SplashscreenViewModel>(
+    () => SplashscreenViewModel(),
+  );
 }
-// Future<void> initDependencies() async {
-//   await _initHiveService();
-//   await initApiModule();
-//   // Initialize all modules
 
-//   await _initAuthModule();
-//   // await _initHomeModule();
-//   await _initSplashModule();
-// }
+Future<void> _initCourseModule() async {
+  serviceLocator.registerFactory<CourseRemoteDataSource>(
+    () => CourseRemoteDataSourceImpl(
+      apiService: serviceLocator<ApiService>(), // ✅ Only ApiService now
+    ),
+  );
 
-// Future<void> _initHiveService() async {
-//   serviceLocator.registerLazySingleton(() => HiveService());
-// }
+  serviceLocator.registerFactory<CourseRepository>(
+    () => CourseRepositoryImpl(
+      remoteDataSource: serviceLocator<CourseRemoteDataSource>(),
+    ),
+  );
 
-// Future<void> initApiModule() async {
-//   // Dio instance
-//   serviceLocator.registerLazySingleton<Dio>(() => Dio());
-//   serviceLocator.registerLazySingleton(() => ApiService(serviceLocator<Dio>()));
-// }
+  serviceLocator.registerFactory<GetAllCourses>(
+    () => GetAllCourses(serviceLocator<CourseRepository>()),
+  );
 
-// Future<void> _initAuthModule() async {
-//   // ===================== Data Source ====================
-//   serviceLocator.registerFactory(
-//     () => UserLocalDatasource(hiveService: serviceLocator<HiveService>()),
-//   );
+  serviceLocator.registerFactory<CourseBloc>(
+    () => CourseBloc(getAllCourses: serviceLocator<GetAllCourses>()),
+  );
+}
 
-//   serviceLocator.registerFactory(
-//     () => UserLocalRepository(
-//       userLocalDatasource: serviceLocator<UserLocalDatasource>(),
-//     ),
-//   );
+Future<void> _initLessonModule() async {
+  serviceLocator.registerFactory<LessonRemoteDataSource>(
+    () => LessonRemoteDataSourceImpl(dio: serviceLocator<Dio>()),
+  );
 
-//   serviceLocator.registerFactory(
-//     () =>
-//         UserLoginUsecase(userRepository: serviceLocator<UserLocalRepository>()),
-//   );
+  serviceLocator.registerFactory<LessonRepository>(
+    () => LessonRepositoryImpl(
+      remoteDataSource: serviceLocator<LessonRemoteDataSource>(),
+    ),
+  );
 
-//   serviceLocator.registerFactory(
-//     () => UserRegisterUsecase(
-//       userRepository: serviceLocator<UserLocalRepository>(),
-//     ),
-//   );
+  // serviceLocator.registerFactory<GetAllLessonsUseCase>(
+  //   () => GetAllLessonsUseCase(: serviceLocator<LessonRepository>()),
+  // );
+  serviceLocator.registerFactory<GetAllLessonsUseCase>(
+    () => GetAllLessonsUseCase(serviceLocator<LessonRepository>()),
+  );
 
-//   serviceLocator.registerFactory(
-//     () => UploadImageUsecase(
-//       userRepository: serviceLocator<UserLocalRepository>(),
-//     ),
-//   );
+  serviceLocator.registerFactory<LessonBloc>(
+    () => LessonBloc(
+      getAllLessonsUseCase: serviceLocator<GetAllLessonsUseCase>(),
+      lessonRepository: serviceLocator<LessonRepository>(),
+    ),
+  );
+}
 
-//   serviceLocator.registerFactory(
-//     () => UserGetCurrentUsecase(
-//       userRepository: serviceLocator<UserLocalRepository>(),
-//     ),
-//   );
 
-//   serviceLocator.registerFactory(
-//     () => RegisterViewModel(
-//       serviceLocator<UserRegisterUsecase>(),
-//       serviceLocator<UploadImageUsecase>(),
-//     ),
-//   );
+// Future<void> _initLessonModule() async {
+//  serviceLocator.registerFactory<LessonRemoteDataSource>(
+//   () => LessonRemoteDataSourceImpl(dio: serviceLocator<Dio>()),
+// );
 
-//   // Register LoginViewModel WITHOUT HomeViewModel to avoid circular dependency
-//   serviceLocator.registerFactory(
-//     () => LoginViewModel(serviceLocator<UserLoginUsecase>()),
-//   );
-// }
+// serviceLocator.registerFactory<LessonRepository>(
+//   () => LessonRepositoryImpl(serviceLocator<LessonRemoteDataSource>()),
+// );
 
-// // Future<void> _initHomeModule() async {
-// //   serviceLocator.registerFactory(
-// //     () => HomeViewModel(loginViewModel: serviceLocator<LoginViewModel>()),
-// //   );
-// // }
+// serviceLocator.registerFactory<GetAllLessonsUseCase>(
+//   () => GetAllLessonsUseCase(serviceLocator<LessonRepository>()),
+// );
 
-// Future<void> _initSplashModule() async {
-//   serviceLocator.registerFactory(() => SplashscreenViewModel());
+// serviceLocator.registerFactory<LessonBloc>(
+//   () => LessonBloc(
+//     getAllLessonsUseCase: serviceLocator<GetAllLessonsUseCase>(),
+//     lessonRepository: serviceLocator<LessonRepository>(),
+//   ),
+// );
 
 // }
+
+
+
+  // serviceLocator.registerFactory<LessonBloc>(
+  //   () => LessonBloc(getAllLessonsUseCase: serviceLocator<>()),
+  // );
+
