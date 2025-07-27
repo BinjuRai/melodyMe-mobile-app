@@ -2,8 +2,11 @@ import 'package:batch34_b/app/service_locator/service_locator.dart';
 import 'package:batch34_b/features/course/presentation/view/%20courselistpage_view.dart';
 import 'package:batch34_b/features/course/presentation/view_model/course_view_model.dart';
 import 'package:batch34_b/features/lesson/presentation/view_model/lesson_view_model.dart';
+import 'package:batch34_b/features/payment/presentation/view_model/payment_view_model.dart';
 import 'package:batch34_b/features/splash/presentation/view/splashscreen_view.dart';
 import 'package:batch34_b/features/splash/presentation/view_model/splashscreen_view_model.dart';
+import 'package:batch34_b/features/wishlist/presentation/view_model/wishlist_event.dart';
+import 'package:batch34_b/features/wishlist/presentation/view_model/wishlist_view_model.dart';
 import 'package:batch34_b/theme/theme_data.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +24,14 @@ class App extends StatelessWidget {
         ),
         BlocProvider<CourseBloc>(create: (_) => serviceLocator<CourseBloc>()),
         BlocProvider<LessonBloc>(create: (_) => serviceLocator<LessonBloc>()),
+        BlocProvider<PaymentBloc>(create: (_) => serviceLocator<PaymentBloc>()),
+       BlocProvider<WishlistBloc>(
+  create: (_) {
+    final bloc = serviceLocator<WishlistBloc>();
+    bloc.add(LoadWishlist(userId: 'USER_ID_HERE')); // <-- Replace dynamically later
+    return bloc;
+  },
+),
       ],
       child: MaterialApp(
         theme: getApplicationTheme(),

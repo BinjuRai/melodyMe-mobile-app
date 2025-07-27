@@ -3,6 +3,8 @@ import 'package:batch34_b/features/lesson/presentation/view_model/lesson_event.d
 import 'package:batch34_b/features/lesson/presentation/view_model/lesson_state.dart';
 import 'package:batch34_b/features/lesson/presentation/view_model/lesson_view_model.dart';
 import 'package:batch34_b/core/common/card/lesson_card.dart';
+import 'package:batch34_b/features/payment/presentation/view/payment_submit_form.dart';
+import 'package:batch34_b/features/payment/presentation/view_model/payment_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,7 +43,9 @@ class _LessonViewState extends State<LessonView> {
             child: LessonSearchBar(
               controller: _searchController,
               onSearch: (query) {
-                context.read<LessonBloc>().add(SearchLessonsEvent(query: query));
+                context.read<LessonBloc>().add(
+                  SearchLessonsEvent(query: query),
+                );
               },
               onClear: () {
                 _searchController.clear();
@@ -77,7 +81,8 @@ class _LessonViewState extends State<LessonView> {
 
     if (state is LessonLoadedState) {
       final lessons = state.lessons;
-      final isSearching = (state.searchQuery != null && state.searchQuery!.isNotEmpty);
+      final isSearching =
+          (state.searchQuery != null && state.searchQuery!.isNotEmpty);
 
       return _buildLessonsList(
         lessons: lessons,
@@ -88,7 +93,8 @@ class _LessonViewState extends State<LessonView> {
 
     if (state is LessonRefreshingState) {
       final lessons = state.lessons;
-      final isSearching = (state.searchQuery != null && state.searchQuery!.isNotEmpty);
+      final isSearching =
+          (state.searchQuery != null && state.searchQuery!.isNotEmpty);
 
       return _buildLessonsList(
         lessons: lessons,
@@ -118,10 +124,7 @@ class _LessonViewState extends State<LessonView> {
         final lesson = lessons[index];
         return Padding(
           padding: const EdgeInsets.only(bottom: 12.0),
-          child: LessonCard(
-            lesson: lesson,
-            onTap: () => _onLessonTap(lesson),
-          ),
+          child: LessonCard(lesson: lesson, onTap: () => _onLessonTap(lesson), userId: '',),
         );
       },
     );
@@ -142,9 +145,9 @@ class _LessonViewState extends State<LessonView> {
           const SizedBox(height: 8),
           Text(
             message,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey.shade600,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(color: Colors.grey.shade600),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 24),
@@ -168,7 +171,9 @@ class _LessonViewState extends State<LessonView> {
           Icon(Icons.inbox, size: 64, color: Colors.grey.shade400),
           const SizedBox(height: 16),
           Text(
-            isSearching ? 'No lessons match your search.' : 'No lessons available.',
+            isSearching
+                ? 'No lessons match your search.'
+                : 'No lessons available.',
             style: Theme.of(context).textTheme.headlineSmall,
             textAlign: TextAlign.center,
           ),
@@ -177,9 +182,9 @@ class _LessonViewState extends State<LessonView> {
             isSearching
                 ? 'Try refining your search keywords.'
                 : 'Check back later or try refreshing.',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey.shade600,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(color: Colors.grey.shade600),
             textAlign: TextAlign.center,
           ),
         ],
@@ -187,9 +192,23 @@ class _LessonViewState extends State<LessonView> {
     );
   }
 
+  //   void _onLessonTap(LessonEntity lesson) {
+  //     // You can navigate to a detail page here
+  //     debugPrint("Tapped on lesson: ${lesson.name}");
+  //   }
+  // }
   void _onLessonTap(LessonEntity lesson) {
-    // You can navigate to a detail page here
-    debugPrint("Tapped on lesson: ${lesson.name}");
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder:
+            (context) => BlocProvider.value(
+              value:
+                  context.read<PaymentBloc>(), // pass the existing PaymentBloc
+              child: PaymentFormView(lesson: lesson),
+            ),
+      ),
+    );
   }
 }
 

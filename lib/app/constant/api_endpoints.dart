@@ -16,7 +16,7 @@ class ApiEndpoints {
   // static const String baseUrl = "$serverAddress/api/v1/";
   // static const String imageUrl = "$baseUrl/uploads/";
   static const String baseUrl = "$serverAddress/api/";
-  static const String imageUrl = "$serverAddress/uploads/";
+  static const String imageUrl = "$serverAddress/";
 
   // static const String imageUrl = "$baseUrl/uploads/";
   // static const String imageUrl = "http://10.0.2.2:5050/api/";
@@ -33,6 +33,16 @@ class ApiEndpoints {
   // static const String getAllLessons = "admin/lesson";
   static const String getAllLessons = "admin/lesson";
   static const String getLessonById = "admin/lesson";
+
+  // Wishlist
+  static const String getWishlistLessons = "normal/wishlist";
+  static const String getWishlistLessonById = "normal/wishlist";
+  static const String addLessonToWishlist = "normal/wishlist/add";
+  static const String removeLessonFromWishlist = "normal/wishlist/remove";
+
+  static const String createPayment = "api/payment";
+  static const String getAllPayments = "api/payment";
+  static const String getPaymentById = "api/payment";
 
   // static const String createLesson = "admin/lessons";
   // static const String updateLesson = "admin/lessons/";

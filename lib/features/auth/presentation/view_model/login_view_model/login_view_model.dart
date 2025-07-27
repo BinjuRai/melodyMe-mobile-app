@@ -1,4 +1,5 @@
 import 'package:batch34_b/app/service_locator/service_locator.dart';
+import 'package:batch34_b/app/share_pref/token_shared_pref.dart';
 import 'package:batch34_b/bottom_screen/dashboard.dart';
 
 import 'package:batch34_b/core/common/snack_bar/snack_bar.dart';
@@ -44,17 +45,48 @@ class LoginViewModel extends Bloc<LoginEvent, LoginState> {
     }
   }
 
+  //   void _onLoginWithEmailAndPassword(
+  //     LoginWithEmailAndPasswordEvent event,
+  //     Emitter<LoginState> emit,
+  //   ) async {
+  //     emit(state.copyWith(isLoading: true));
+  //     final result = await _userLoginUsecase(
+  //       LoginParams(email: event.email, password: event.password),
+  //     );
+
+  //     result.fold(
+  //       (failure) {
+  //         emit(state.copyWith(isLoading: false, isSuccess: false));
+
+  //         showMySnackBar(
+  //           context: event.context,
+  //           message: 'Invalid credentials. Please try again.',
+  //           color: Colors.red,
+  //         );
+  //       },
+  //       (token) {
+  //         emit(state.copyWith(isLoading: false, isSuccess: true));
+  //         if (event.context.mounted) {
+  //           Navigator.pushReplacement(
+  //             event.context,
+  //             MaterialPageRoute(builder: (_) => DashboardScreen()),
+  //           );
+  //         }
+  //       },
+  //     );
+  //   }
   void _onLoginWithEmailAndPassword(
     LoginWithEmailAndPasswordEvent event,
     Emitter<LoginState> emit,
   ) async {
     emit(state.copyWith(isLoading: true));
+
     final result = await _userLoginUsecase(
       LoginParams(email: event.email, password: event.password),
     );
 
-    result.fold(
-      (failure) {
+    await result.fold(
+      (failure) async {
         emit(state.copyWith(isLoading: false, isSuccess: false));
 
         showMySnackBar(
@@ -63,14 +95,35 @@ class LoginViewModel extends Bloc<LoginEvent, LoginState> {
           color: Colors.red,
         );
       },
-      (token) {
-        emit(state.copyWith(isLoading: false, isSuccess: true));
-        if (event.context.mounted) {
-          Navigator.pushReplacement(
-            event.context,
-            MaterialPageRoute(builder: (_) => DashboardScreen()),
-          );
-        }
+      (token) async {
+        // ✅ Optional: Debug the token
+        print('✅ Received token: $token');
+
+        final saveResult = await serviceLocator<TokenSharedPrefs>().saveToken(
+          token,
+        );
+
+        await saveResult.fold(
+          (failure) async {
+            emit(state.copyWith(isLoading: false, isSuccess: false));
+
+            showMySnackBar(
+              context: event.context,
+              message: 'Failed to save token: ${failure.message}',
+              color: Colors.red,
+            );
+          },
+          (_) async {
+            emit(state.copyWith(isLoading: false, isSuccess: true));
+
+            if (event.context.mounted) {
+              Navigator.pushReplacement(
+                event.context,
+                MaterialPageRoute(builder: (_) => DashboardScreen()),
+              );
+            }
+          },
+        );
       },
     );
   }

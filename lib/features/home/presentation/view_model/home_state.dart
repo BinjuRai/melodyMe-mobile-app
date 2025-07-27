@@ -13,15 +13,7 @@ class HomeState {
       selectedIndex: 0,
       views: [
         DashboardScreen(),
-        // BlocProvider.value(
-        //   value: serviceLocator<CourseViewModel>(),
-        //   child: CourseView(),
-        // ),
-        // BlocProvider.value(
-        //   value: serviceLocator<BatchViewModel>(),
-        //   child: BatchView(),
-        // ),
-        // AccountView(),
+       
       ],
     );
   }

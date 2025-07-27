@@ -7,19 +7,19 @@ part 'lesson_api_model.g.dart';
 class LessonModel {
   @JsonKey(name: '_id')
   final String id;
-  
+
   final String name;
   final String description;
   final String authorName;
   final String duration;
   final double price;
-  
+
   @JsonKey(name: 'courseId')
   final CourseInfo? courseInfo;
-  
+
   @JsonKey(name: 'sellerId')
   final SellerInfo sellerInfo;
-  
+
   final String imagepath;
   final String filepath;
   final String createdAt;
@@ -42,7 +42,7 @@ class LessonModel {
 
   factory LessonModel.fromJson(Map<String, dynamic> json) =>
       _$LessonModelFromJson(json);
-  
+
   Map<String, dynamic> toJson() => _$LessonModelToJson(this);
 
   /// Convert API model to domain entity
@@ -73,14 +73,11 @@ class CourseInfo {
   final String id;
   final String name;
 
-  CourseInfo({
-    required this.id,
-    required this.name,
-  });
+  CourseInfo({required this.id, required this.name});
 
   factory CourseInfo.fromJson(Map<String, dynamic> json) =>
       _$CourseInfoFromJson(json);
-  
+
   Map<String, dynamic> toJson() => _$CourseInfoToJson(this);
 }
 
@@ -91,14 +88,10 @@ class SellerInfo {
   final String firstName;
   final String email;
 
-  SellerInfo({
-    required this.id,
-    required this.firstName,
-    required this.email,
-  });
+  SellerInfo({required this.id, required this.firstName, required this.email});
 
   factory SellerInfo.fromJson(Map<String, dynamic> json) =>
       _$SellerInfoFromJson(json);
-  
+
   Map<String, dynamic> toJson() => _$SellerInfoToJson(this);
 }
