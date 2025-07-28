@@ -45,3 +45,4 @@ class CourseBloc extends Bloc<CourseEvent, CourseState> {
     _isFetching = false;
   }
 }
+

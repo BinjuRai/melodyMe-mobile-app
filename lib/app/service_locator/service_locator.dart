@@ -1,11 +1,14 @@
 import 'package:batch34_b/app/constant/api_endpoints.dart';
+import 'package:batch34_b/features/course/data/data_source/course_data_source.dart';
+import 'package:batch34_b/features/course/data/repository/remote_repository/course_detail_reposotoryimpl.dart';
+import 'package:batch34_b/features/course/data/repository/remote_repository/course_lesson_remote_repository.dart';
+import 'package:batch34_b/features/course/domain/usecase/get_lesson_by_courseId.dart';
+import 'package:batch34_b/features/course/presentation/view_model/course_detail_bloc.dart';
 import 'package:batch34_b/features/lesson/data/data_source/lesson_data_source.dart';
-
 import 'package:batch34_b/features/lesson/data/repository/lesson_repository_impl.dart';
 import 'package:batch34_b/features/lesson/domain/repository/lesson_repository.dart';
 import 'package:batch34_b/features/lesson/domain/usecase/get_all_lesson_usecase.dart';
 import 'package:batch34_b/features/lesson/presentation/view_model/lesson_view_model.dart';
-import 'package:batch34_b/features/payment/data/data_source/remote_data_source/payament_remote_data_source.dart';
 import 'package:batch34_b/features/payment/data/repository/payment_repository_impl.dart';
 import 'package:batch34_b/features/payment/domain/repository/payment_repository.dart';
 import 'package:batch34_b/features/payment/domain/usecase/create_payment_usecase.dart';
@@ -48,10 +51,7 @@ import 'package:batch34_b/features/course/domain/repository/course_repository.da
 import 'package:batch34_b/features/course/domain/usecase/get_all_courses.dart';
 import 'package:batch34_b/features/course/presentation/view_model/course_view_model.dart';
 
-import 'package:batch34_b/features/lesson/data/data_source/lesson_data_source.dart'
-    as lesson_ds;
-import 'package:batch34_b/features/lesson/data/data_source/remote_datasource/lesson_remote_datasource.dart'
-    as remote_ds;
+
 
 final serviceLocator = GetIt.instance;
 
@@ -158,27 +158,84 @@ Future<void> _initSplashModule() async {
   );
 }
 
+// Future<void> _initCourseModule() async {
+//   serviceLocator.registerFactory<CourseRemoteDataSource>(
+//     () => CourseRemoteDataSourceImpl(
+//       apiService: serviceLocator<ApiService>(), // ✅ Only ApiService now
+//     ),
+//   );
+//  serviceLocator.registerLazySingleton<CourseLessonRemoteRepository>(() => 
+//  CourseLessonRemoteRepository(serviceLocator<Dio>()));
+
+//   serviceLocator.registerFactory<CourseRepository>(
+//     () => CourseRepositoryImpl(
+//       remoteDataSource: serviceLocator<CourseRemoteDataSource>(), lessonRemoteRepository: null,
+//     ),
+//   );
+  
+
+//   serviceLocator.registerFactory<GetAllCourses>(
+//     () => GetAllCourses(serviceLocator<CourseRepository>()),
+//   );
+
+//   serviceLocator.registerFactory<CourseBloc>(
+//     () => CourseBloc(getAllCourses: serviceLocator<GetAllCourses>()),
+//   );
+//   serviceLocator.registerFactory<CourseRepository>(
+//   () => CourseRepositoryImpl(
+//     remoteDataSource: serviceLocator<CourseRemoteDataSource>(),
+//     lessonRemoteRepository: serviceLocator<CourseLessonRemoteRepository>(),
+//   ),
+// );
+// }
 Future<void> _initCourseModule() async {
+  // ✅ Register CourseRemoteDataSource
   serviceLocator.registerFactory<CourseRemoteDataSource>(
     () => CourseRemoteDataSourceImpl(
-      apiService: serviceLocator<ApiService>(), // ✅ Only ApiService now
+      apiService: serviceLocator<ApiService>(),
     ),
   );
 
+  // ✅ Register CourseLessonRemoteRepository
+  serviceLocator.registerLazySingleton<CourseLessonRemoteRepository>(
+    () => CourseLessonRemoteRepositoryImpl(serviceLocator<Dio>()),
+  );
+
+  // ✅ Register CourseRepository
   serviceLocator.registerFactory<CourseRepository>(
     () => CourseRepositoryImpl(
       remoteDataSource: serviceLocator<CourseRemoteDataSource>(),
+      lessonRemoteRepository: serviceLocator<CourseLessonRemoteRepository>(),
     ),
   );
 
+  // ✅ Register GetAllCourses use case
   serviceLocator.registerFactory<GetAllCourses>(
     () => GetAllCourses(serviceLocator<CourseRepository>()),
   );
 
+  // ✅ Register CourseBloc
   serviceLocator.registerFactory<CourseBloc>(
     () => CourseBloc(getAllCourses: serviceLocator<GetAllCourses>()),
   );
+
+  // ✅ Register GetLessonsByCourseUseCase (YOU MISSED THIS)
+  serviceLocator.registerFactory<GetLessonsByCourseUseCase>(
+    () => GetLessonsByCourseUseCase(serviceLocator<CourseRepository>()),
+  );
+
+  // ✅ Register CourseDetailBloc
+  serviceLocator.registerFactory<CourseDetailBloc>(
+    () => CourseDetailBloc(
+      courseRepository: serviceLocator<CourseRepository>(),
+      getLessonsByCourseUseCase: serviceLocator<GetLessonsByCourseUseCase>(),
+    ),
+  );
 }
+
+  
+
+
 
 Future<void> _initLessonModule() async {
   serviceLocator.registerFactory<LessonRemoteDataSource>(
@@ -191,9 +248,10 @@ Future<void> _initLessonModule() async {
     ),
   );
 
-  // serviceLocator.registerFactory<GetAllLessonsUseCase>(
-  //   () => GetAllLessonsUseCase(: serviceLocator<LessonRepository>()),
-  // );
+
+
+
+
   serviceLocator.registerFactory<GetAllLessonsUseCase>(
     () => GetAllLessonsUseCase(serviceLocator<LessonRepository>()),
   );

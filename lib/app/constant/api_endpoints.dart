@@ -29,6 +29,12 @@ class ApiEndpoints {
 
   // static const String createCourse = "course";
   static const String getAllCourse = "admin/courses";
+  static const String getCourseById = "admin/course/:id";
+  static const String createCourse = "admin/course";
+  static const String updateCourse = "admin/course/:id";
+  static const String deleteCourse = "admin/course/:id";
+  static const String getAllCourses = "admin/courses";
+  static const String getCourseLessons = "admin/course/:id/lessons";
 
   // static const String getAllLessons = "admin/lesson";
   static const String getAllLessons = "admin/lesson";

@@ -1,7 +1,14 @@
+import 'package:batch34_b/app/service_locator/service_locator.dart';
+import 'package:batch34_b/features/course/domain/repository/course_repository.dart';
+import 'package:batch34_b/features/course/domain/usecase/get_lesson_by_courseId.dart';
+import 'package:batch34_b/features/course/presentation/view/user_view_course_detail_screen.dart.dart';
+import 'package:batch34_b/features/course/presentation/view_model/course_detail_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:batch34_b/app/constant/api_endpoints.dart';
 import 'package:batch34_b/features/course/domain/entity/course_entity.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class CourseCard extends StatelessWidget {
   final CourseEntity course;
@@ -35,7 +42,6 @@ class CourseCard extends StatelessWidget {
               Expanded(
                 child: Stack(
                   children: [
-                    // Text info
                     Padding(
                       padding: const EdgeInsets.only(
                         right: 100,
@@ -84,15 +90,57 @@ class CourseCard extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    // Positioned button bottom right
                     Positioned(
                       bottom: 0,
                       right: 0,
                       child: SizedBox(
                         height: 36,
                         child: ElevatedButton.icon(
-                          onPressed: onTap,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (_) => MultiProvider(
+                                      providers: [
+                                        Provider<CourseRepository>.value(
+                                          value:
+                                              serviceLocator<
+                                                CourseRepository
+                                              >(),
+                                        ),
+                                        Provider<GetLessonsByCourseUseCase>(
+                                          create:
+                                              (
+                                                context,
+                                              ) => GetLessonsByCourseUseCase(
+                                                context
+                                                    .read<CourseRepository>(),
+                                              ),
+                                        ),
+                                        BlocProvider<CourseDetailBloc>(
+                                          create:
+                                              (context) => CourseDetailBloc(
+                                                courseRepository:
+                                                    context
+                                                        .read<
+                                                          CourseRepository
+                                                        >(),
+                                                getLessonsByCourseUseCase:
+                                                    context
+                                                        .read<
+                                                          GetLessonsByCourseUseCase
+                                                        >(),
+                                              ),
+                                        ),
+                                      ],
+                                      child: UserViewCourseDetailScreen(
+                                        courseId: course.id,
+                                      ),
+                                    ),
+                              ),
+                            );
+                          },
                           icon: const Icon(Icons.play_arrow, size: 16),
                           label: const Text(
                             "View 🎧",
@@ -127,7 +175,7 @@ class CourseCard extends StatelessWidget {
     String? fullImageUrl;
     if (hasImage) {
       final cleanPath =
-          filepath!.startsWith('/') ? filepath.substring(1) : filepath;
+          filepath.startsWith('/') ? filepath.substring(1) : filepath;
       fullImageUrl = ApiEndpoints.imageUrl + cleanPath;
     }
 

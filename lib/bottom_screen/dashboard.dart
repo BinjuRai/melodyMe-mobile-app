@@ -1,7 +1,7 @@
 import 'package:batch34_b/features/home/presentation/view/home_view.dart';
 import 'package:batch34_b/features/notification/presentation/view/notification_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:batch34_b/bottom_screen/home.dart';
+
 import 'package:batch34_b/bottom_screen/profile.dart';
 import 'package:batch34_b/features/course/presentation/view/ courselistpage_view.dart';
 import 'package:batch34_b/features/lesson/presentation/view/lesson_view.dart';

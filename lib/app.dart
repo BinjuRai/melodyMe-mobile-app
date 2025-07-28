@@ -1,5 +1,6 @@
 import 'package:batch34_b/app/service_locator/service_locator.dart';
-import 'package:batch34_b/features/course/presentation/view/%20courselistpage_view.dart';
+import 'package:batch34_b/features/course/domain/repository/course_repository.dart';
+import 'package:batch34_b/features/course/domain/usecase/get_lesson_by_courseId.dart';
 import 'package:batch34_b/features/course/presentation/view_model/course_view_model.dart';
 import 'package:batch34_b/features/lesson/presentation/view_model/lesson_view_model.dart';
 import 'package:batch34_b/features/payment/presentation/view_model/payment_view_model.dart';
@@ -11,6 +12,7 @@ import 'package:batch34_b/theme/theme_data.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -23,6 +25,9 @@ class App extends StatelessWidget {
           value: serviceLocator<SplashscreenViewModel>(),
         ),
         BlocProvider<CourseBloc>(create: (_) => serviceLocator<CourseBloc>()),
+         Provider<GetLessonsByCourseUseCase>(
+      create: (context) => GetLessonsByCourseUseCase(context.read<CourseRepository>()),
+    ),
         BlocProvider<LessonBloc>(create: (_) => serviceLocator<LessonBloc>()),
         BlocProvider<PaymentBloc>(create: (_) => serviceLocator<PaymentBloc>()),
        BlocProvider<WishlistBloc>(
