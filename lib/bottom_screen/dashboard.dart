@@ -1,8 +1,9 @@
+import 'package:batch34_b/features/auth/data/repository/user_repository_impl.dart';
+import 'package:batch34_b/features/auth/presentation/view/profile_view.dart';
 import 'package:batch34_b/features/home/presentation/view/home_view.dart';
 import 'package:batch34_b/features/notification/presentation/view/notification_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'package:batch34_b/bottom_screen/profile.dart';
 import 'package:batch34_b/features/course/presentation/view/ courselistpage_view.dart';
 import 'package:batch34_b/features/lesson/presentation/view/lesson_view.dart';
 import 'package:batch34_b/features/wishlist/presentation/view/wishlist_view.dart';
@@ -60,12 +61,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
               );
             },
           ),
+
+          // IconButton(
+          //   icon: Icon(Icons.person, color: iconColor),
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (_) => ProfileView()),
+          //     );
+          //   },
+          // ),
           IconButton(
             icon: Icon(Icons.person, color: iconColor),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const Profile()),
+                MaterialPageRoute(
+                  builder:
+                      (context) =>
+                          ProfileProvider(userRepository: UserRepositoryImpl()),
+                ),
               );
             },
           ),

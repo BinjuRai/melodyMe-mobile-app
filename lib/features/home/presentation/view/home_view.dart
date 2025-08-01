@@ -313,7 +313,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     BuildContext context,
   ) {
     return Container(
-      height: 180,
+      height: 250,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         gradient: LinearGradient(

@@ -10,7 +10,7 @@ import 'package:dio/dio.dart';
 class UserRemoteDatasource implements IUserDatasource {
   final ApiService _apiService;
 
-  UserRemoteDatasource({required ApiService apiService})
+  UserRemoteDatasource({required ApiService apiService, required Dio dio})
       : _apiService = apiService;
 
   @override

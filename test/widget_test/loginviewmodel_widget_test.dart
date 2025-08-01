@@ -1,6 +1,8 @@
+import 'package:batch34_b/app/share_pref/token_shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:dartz/dartz.dart';
 import 'package:batch34_b/features/auth/domain/use_case/user_login_usecase.dart';
@@ -9,9 +11,12 @@ import 'package:batch34_b/features/auth/presentation/view/login_view.dart';
 import 'package:batch34_b/features/auth/presentation/view_model/login_view_model/login_view_model.dart';
 import 'package:batch34_b/core/error/failure.dart';
 
+import '../features/auth/domain/use_case/token.mock.dart';
+
 class MockUserLoginUsecase extends Mock implements UserLoginUsecase {}
 
 class FakeLoginParams extends Fake implements LoginParams {}
+final sl = GetIt.instance;
 
 void main() {
   late MockUserLoginUsecase mockUserLoginUsecase;
@@ -56,20 +61,40 @@ void main() {
     expect(find.text('Invalid credentials. Please try again.'), findsOneWidget);
   });
 
+  // testWidgets('navigates to dashboard on successful login', (tester) async {
+  //   when(() => mockUserLoginUsecase(any())).thenAnswer(
+  //     (_) async => const Right('token_123'),
+  //   );
+
+  //   await tester.pumpWidget(buildLoginScreen());
+
+  //   await tester.enterText(find.byType(TextField).at(0), 'test@email.com');
+  //   await tester.enterText(find.byType(TextField).at(1), 'correctpassword');
+
+  //   await tester.tap(find.text('Login'));
+  //   await tester.pumpAndSettle();
+
+  //   // You'll need a specific widget or screen title from Dashboard to assert
+  //   expect(find.byType(Scaffold), findsWidgets); // or look for a specific dashboard text
+  // });
   testWidgets('navigates to dashboard on successful login', (tester) async {
-    when(() => mockUserLoginUsecase(any())).thenAnswer(
-      (_) async => const Right('token_123'),
-    );
+  final mockTokenSharedPrefs = MockTokenSharedPrefs();
+  sl.registerLazySingleton<TokenSharedPrefs>(() => mockTokenSharedPrefs);
 
-    await tester.pumpWidget(buildLoginScreen());
+  when(() => mockUserLoginUsecase(any())).thenAnswer(
+    (_) async => const Right('token_123'),
+  );
 
-    await tester.enterText(find.byType(TextField).at(0), 'test@email.com');
-    await tester.enterText(find.byType(TextField).at(1), 'correctpassword');
+  await tester.pumpWidget(buildLoginScreen());
 
-    await tester.tap(find.text('Login'));
-    await tester.pumpAndSettle();
+  await tester.enterText(find.byType(TextField).at(0), 'test@email.com');
+  await tester.enterText(find.byType(TextField).at(1), 'correctpassword');
 
-    // You'll need a specific widget or screen title from Dashboard to assert
-    expect(find.byType(Scaffold), findsWidgets); // or look for a specific dashboard text
-  });
+  await tester.tap(find.text('Login'));
+  await tester.pumpAndSettle();
+
+  // Check that the user navigated to dashboard or home screen
+  expect(find.text('Dashboard'), findsOneWidget); // replace with an actual widget/text on dashboard
+});
+
 }

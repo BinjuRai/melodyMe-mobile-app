@@ -9,8 +9,8 @@ class ApiEndpoints {
   static const Duration receiveTimeout = Duration(seconds: 10);
 
   // For iOS Simulator
-  static const String serverAddress = "http://localhost:5050";
-  // static const String serverAddress = "http://10.0.2.2:5050";
+  // static const String serverAddress = "http://localhost:5050";
+  static const String serverAddress = "http://192.168.1.80:5050";
 
   // For iPhone (uncomment if needed)
   // static const String baseUrl = "$serverAddress/api/v1/";

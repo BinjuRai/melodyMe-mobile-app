@@ -5,7 +5,6 @@ import 'package:batch34_b/features/course/presentation/view_model/course_view_mo
 import 'package:batch34_b/features/lesson/domain/entity/lesson_entity.dart';
 import 'package:batch34_b/features/lesson/presentation/view_model/lesson_view_model.dart';
 import 'package:batch34_b/features/payment/presentation/view/payment_submit_form.dart';
-import 'package:batch34_b/features/payment/presentation/view/payment_view.dart';
 import 'package:batch34_b/features/payment/presentation/view_model/payment_view_model.dart';
 import 'package:batch34_b/features/splash/presentation/view/splashscreen_view.dart';
 import 'package:batch34_b/features/splash/presentation/view_model/splashscreen_view_model.dart';

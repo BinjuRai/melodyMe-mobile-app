@@ -7,6 +7,7 @@ import 'package:dartz/dartz.dart';
 class UserGetCurrentUsecase implements UsecaseWithoutParams<UserEntity> {
   final IUserRepository _userRepository;
 
+
   UserGetCurrentUsecase({required IUserRepository userRepository})
     : _userRepository = userRepository;
 

@@ -94,7 +94,10 @@ Future<void> _initAuthModule() async {
     () => UserLocalDatasource(hiveService: serviceLocator<HiveService>()),
   );
   serviceLocator.registerFactory<UserRemoteDatasource>(
-    () => UserRemoteDatasource(apiService: serviceLocator<ApiService>()),
+    () => UserRemoteDatasource(
+      apiService: serviceLocator<ApiService>(),
+      dio: serviceLocator<Dio>(),
+    ),
   );
 
   // Repositories

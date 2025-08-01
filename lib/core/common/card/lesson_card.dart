@@ -436,6 +436,7 @@ class LessonCard extends StatelessWidget {
   Widget _buildLessonImage() {
     final String? imagePath = lesson.imagePath;
     final hasImage = imagePath != null && imagePath.isNotEmpty;
+    
 
     String? fullImageUrl;
     if (hasImage) {

@@ -6,6 +6,7 @@ import 'package:dartz/dartz.dart';
 
 class GetProfile {
   final IUserRepository _userRepository;
+   
 
   GetProfile({required IUserRepository userRepository})
       : _userRepository = userRepository;
