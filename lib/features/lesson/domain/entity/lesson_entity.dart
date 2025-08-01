@@ -1,5 +1,3 @@
-
-
 import 'package:batch34_b/features/course/domain/entity/course_entity.dart';
 import 'package:equatable/equatable.dart';
 
@@ -12,11 +10,11 @@ class LessonEntity extends Equatable {
   final double price;
   final String? courseId;
   final String? courseName;
-  final String sellerId;
-  final String sellerName;
-  final String sellerEmail;
-  final String imagePath;
-  final String filePath;
+  final String? sellerId;
+  final String? sellerName;
+  final String? sellerEmail;
+  final String? imagePath;
+  final String? filePath;
   final DateTime createdAt;
   final DateTime updatedAt;
   final CourseEntity? course;
@@ -30,14 +28,14 @@ class LessonEntity extends Equatable {
     required this.price,
     this.courseId,
     this.courseName,
-    required this.sellerId,
-    required this.sellerName,
-    required this.sellerEmail,
-    required this.imagePath,
-    required this.filePath,
+    this.sellerId,
+    this.sellerName,
+    this.sellerEmail,
+    this.imagePath,
+    this.filePath,
     required this.createdAt,
     required this.updatedAt,
-      this.course,
+    this.course,
   });
 
   factory LessonEntity.empty() {
@@ -50,11 +48,11 @@ class LessonEntity extends Equatable {
       price: 0.0,
       courseId: null,
       courseName: null,
-      sellerId: '',
-      sellerName: '',
-      sellerEmail: '',
-      imagePath: '',
-      filePath: '',
+      sellerId: null,
+      sellerName: null,
+      sellerEmail: null,
+      imagePath: null,
+      filePath: null,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
@@ -62,22 +60,22 @@ class LessonEntity extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        name,
-        description,
-        authorName,
-        duration,
-        price,
-        courseId,
-        courseName,
-        sellerId,
-        sellerName,
-        sellerEmail,
-        imagePath,
-        filePath,
-        createdAt,
-        updatedAt,
-      ];
+    id,
+    name,
+    description,
+    authorName,
+    duration,
+    price,
+    courseId,
+    courseName,
+    sellerId,
+    sellerName,
+    sellerEmail,
+    imagePath,
+    filePath,
+    createdAt,
+    updatedAt,
+  ];
 }
 
 class LessonPagination extends Equatable {
@@ -110,11 +108,11 @@ class LessonPagination extends Equatable {
 
   @override
   List<Object> get props => [
-        currentPage,
-        totalPages,
-        totalItems,
-        itemsPerPage,
-        hasNext,
-        hasPrev,
-      ];
+    currentPage,
+    totalPages,
+    totalItems,
+    itemsPerPage,
+    hasNext,
+    hasPrev,
+  ];
 }

@@ -27,8 +27,8 @@ class PaymentView extends StatelessWidget {
                 padding: const EdgeInsets.all(16),
                 children: [
                   _buildDetailRow('Payment ID', p.id),
-                  _buildDetailRow('User', p.username ?? 'Unknown'),
-                  _buildDetailRow('Course ID', p.courseId),
+                  // _buildDetailRow('User', p.username ?? 'Unknown'),
+                  _buildDetailRow('Course ID', p.courseId ?? 'Unknown'),
                   _buildDetailRow('Lesson ID', p.lessonId ?? 'N/A'),
                   _buildDetailRow(
                     'Price Paid',

@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 
 class PaymentEntity extends Equatable {
   final String id;
-  final String userId;
+  final String? userId;
   final String? username;
 
-  final String courseId;
-  final String? courseTitle;
+  final String? courseId;
+  // final String? courseTitle;
 
   final String? lessonId;
   final String? lessonTitle;
@@ -19,10 +19,10 @@ class PaymentEntity extends Equatable {
 
   const PaymentEntity({
     required this.id,
-    required this.userId,
+    this.userId,
     this.username,
-    required this.courseId,
-    this.courseTitle,
+    this.courseId,
+    // this.courseTitle,
     this.lessonId,
     this.lessonTitle,
     required this.pricePaid,
@@ -36,10 +36,11 @@ class PaymentEntity extends Equatable {
   factory PaymentEntity.empty() {
     return PaymentEntity(
       id: '',
-      userId: '',
-      username: '',
-      courseId: '',
-      courseTitle: '',
+      userId: 'null',
+      username: 'null',
+   
+      courseId: 'null',
+ 
       lessonId: '',
       lessonTitle: '',
       pricePaid: 0.0,
@@ -56,13 +57,13 @@ class PaymentEntity extends Equatable {
     userId,
     username,
     courseId,
-    courseTitle,
+    // courseTitle,
     lessonId,
     lessonTitle,
     pricePaid,
     paymentMethod,
     paymentStatus,
     paymentDate,
-    type
+    type,
   ];
 }

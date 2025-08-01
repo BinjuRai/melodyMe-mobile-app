@@ -15,7 +15,7 @@ class CourseLessonRemoteRepository {
   Future<List<LessonModel>> fetchLessonsByCourse(String courseId) async {
     try {
       final response = await apiService.dio.get(
-        '${ApiEndpoints.baseUrl}/lesson/course/$courseId',
+        '${ApiEndpoints.baseUrl}/admin/courses/$courseId/lessons',
       );
 
       final data = response.data['data'];

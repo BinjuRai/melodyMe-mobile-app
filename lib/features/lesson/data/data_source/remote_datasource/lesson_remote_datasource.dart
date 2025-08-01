@@ -20,6 +20,26 @@ class LessonRemoteDataSourceImpl implements LessonRemoteDataSource {
   LessonRemoteDataSourceImpl({required this.dio});
 
   @override
+  // Future<Either<Failure, LessonResponseModel>> getAllLessons({
+  //   int page = 1,
+  //   int limit = 10,
+  //   String? search,
+  // }) async {
+  //   try {
+  //     final response = await dio.get(
+  //       '/lessons',
+  //       queryParameters: {
+  //         'page': page,
+  //         'limit': limit,
+  //         if (search != null && search.isNotEmpty) 'search': search!,
+  //       },
+  //     );
+  //     final apiModel = LessonResponseModel.fromJson(response.data);
+  //     return Right(apiModel);
+  //   } on DioError catch (e) {
+  //     return Left(ServerFailure(message: e.message ?? 'Unknown error'));
+  //   }
+  // }
   Future<Either<Failure, LessonResponseModel>> getAllLessons({
     int page = 1,
     int limit = 10,
@@ -34,6 +54,20 @@ class LessonRemoteDataSourceImpl implements LessonRemoteDataSource {
           if (search != null && search.isNotEmpty) 'search': search!,
         },
       );
+
+      print('Response data: ${response.data}'); // Log raw response data
+
+      if (response.data == null) {
+        return Left(ServerFailure(message: 'Response data is null'));
+      }
+
+      if (response.data is! Map<String, dynamic>) {
+        return Left(
+          ServerFailure(
+            message: 'Unexpected response format: ${response.data.runtimeType}',
+          ),
+        );
+      }
 
       final apiModel = LessonResponseModel.fromJson(response.data);
       return Right(apiModel);

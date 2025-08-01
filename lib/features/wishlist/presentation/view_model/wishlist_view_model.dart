@@ -45,6 +45,54 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     );
   }
 
+  //   Future<void> _onToggleWishlistLesson(
+  //     ToggleWishlistLesson event,
+  //     Emitter<WishlistState> emit,
+  //   ) async {
+  //     if (state is WishlistLoaded) {
+  //       final currentLessons = List<LessonEntity>.from(
+  //         (state as WishlistLoaded).lessons,
+  //       );
+
+  //       if (event.isInWishlist) {
+  //         // Remove lesson from wishlist
+  //         final result = await wishlistRepository.removeLessonFromWishlist(
+  //           event.userId,
+  //           event.lessonId,
+  //         );
+  //         result.fold(
+  //           (failure) =>
+  //               emit(WishlistError("Failed to remove lesson from wishlist")),
+  //           (_) {
+  //             currentLessons.removeWhere((lesson) => lesson.id == event.lessonId);
+  //             emit(WishlistLoaded(currentLessons));
+  //           },
+  //         );
+  //       } else {
+  //         // Add lesson to wishlist
+  //         final lessonResult = await wishlistRepository.getLessonById(
+  //           event.lessonId,
+  //         );
+  //         lessonResult.fold(
+  //           (failure) => emit(WishlistError("Failed to get lesson details")),
+  //           (lesson) async {
+  //             final addResult = await wishlistRepository.addLessonToWishlist(
+  //               event.userId,
+  //               lesson,
+  //             );
+  //             addResult.fold(
+  //               (failure) =>
+  //                   emit(WishlistError("Failed to add lesson to wishlist")),
+  //               (_) {
+  //                 currentLessons.add(lesson);
+  //                 emit(WishlistLoaded(currentLessons));
+  //               },
+  //             );
+  //           },
+  //         );
+  //       }
+  //     }
+  //   }
   Future<void> _onToggleWishlistLesson(
     ToggleWishlistLesson event,
     Emitter<WishlistState> emit,
@@ -58,36 +106,29 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
         // Remove lesson from wishlist
         final result = await wishlistRepository.removeLessonFromWishlist(
           event.userId,
-          event.lessonId,
+          event.lesson.id,
         );
         result.fold(
           (failure) =>
               emit(WishlistError("Failed to remove lesson from wishlist")),
           (_) {
-            currentLessons.removeWhere((lesson) => lesson.id == event.lessonId);
+            currentLessons.removeWhere(
+              (lesson) => lesson.id == event.lesson.id,
+            );
             emit(WishlistLoaded(currentLessons));
           },
         );
       } else {
         // Add lesson to wishlist
-        final lessonResult = await wishlistRepository.getLessonById(
-          event.lessonId,
+        final result = await wishlistRepository.addLessonToWishlist(
+          event.userId,
+          event.lesson,
         );
-        lessonResult.fold(
-          (failure) => emit(WishlistError("Failed to get lesson details")),
-          (lesson) async {
-            final addResult = await wishlistRepository.addLessonToWishlist(
-              event.userId,
-              lesson,
-            );
-            addResult.fold(
-              (failure) =>
-                  emit(WishlistError("Failed to add lesson to wishlist")),
-              (_) {
-                currentLessons.add(lesson);
-                emit(WishlistLoaded(currentLessons));
-              },
-            );
+        result.fold(
+          (failure) => emit(WishlistError("Failed to add lesson to wishlist")),
+          (_) {
+            currentLessons.add(event.lesson);
+            emit(WishlistLoaded(currentLessons));
           },
         );
       }

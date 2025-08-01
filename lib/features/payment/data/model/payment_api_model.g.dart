@@ -12,11 +12,10 @@ PaymentModel _$PaymentModelFromJson(Map<String, dynamic> json) => PaymentModel(
       paymentMethod: json['paymentMethod'] as String,
       paymentStatus: json['paymentStatus'] as String,
       paymentDate: json['paymentDate'] as String,
-      userInfo: UserInfo.fromJson(json['userId'] as Map<String, dynamic>),
-      courseInfo: CourseInfo.fromJson(json['courseId'] as Map<String, dynamic>),
-      lessonInfo: json['lessonId'] == null
-          ? null
-          : LessonInfo.fromJson(json['lessonId'] as Map<String, dynamic>),
+      userId: json['userId'] as String?,
+      username: json['username'] as String?,
+      courseId: json['courseId'] as String?,
+      lessonId: json['lessonId'] as String?,
       type: json['type'] as String?,
     );
 
@@ -27,8 +26,9 @@ Map<String, dynamic> _$PaymentModelToJson(PaymentModel instance) =>
       'paymentMethod': instance.paymentMethod,
       'paymentStatus': instance.paymentStatus,
       'paymentDate': instance.paymentDate,
-      'userId': instance.userInfo,
-      'courseId': instance.courseInfo,
-      'lessonId': instance.lessonInfo,
+      'userId': instance.userId,
+      'username': instance.username,
+      'courseId': instance.courseId,
+      'lessonId': instance.lessonId,
       'type': instance.type,
     };

@@ -27,14 +27,27 @@ class ApiEndpoints {
   static const String register = "auth/register";
   static const String uploadImage = "auth/uploadImage";
 
+  static const String getProfile = 'auth/profile';
+  static const String updateProfile = 'auth/profile';
+  static const String changePassword = 'auth/change-password';
+
   // static const String createCourse = "course";
   static const String getAllCourse = "admin/courses";
-  static const String getCourseById = "admin/course/:id";
-  static const String createCourse = "admin/course";
-  static const String updateCourse = "admin/course/:id";
-  static const String deleteCourse = "admin/course/:id";
-  static const String getAllCourses = "admin/courses";
-  static const String getCourseLessons = "admin/course/:id/lessons";
+  // static const String getCourseById = "admin/course/:id";
+  // static const String createCourse = "admin/course";
+  // static const String updateCourse = "admin/course/:id";
+  // static const String deleteCourse = "admin/course/:id";
+  // static const String getAllCourses = "admin/courses";
+  // static const String getCourseLessons = "admin/course/:id/lessons";
+  static const String getCourseById =
+      "admin/courses/:id"; // GET /api/admin/courses/:id
+  static const String createCourse = "admin/courses"; // POST /api/admin/courses
+  static const String updateCourse =
+      "admin/courses/:id"; // PUT /api/admin/courses/:id
+  static const String deleteCourse =
+      "admin/courses/:id"; // DELETE /api/admin/courses/:id
+  static const String getCourseLessons =
+      "admin/courses/:id/lessons"; // GET /api/admin/courses/:id/lessons
 
   // static const String getAllLessons = "admin/lesson";
   static const String getAllLessons = "admin/lesson";
@@ -43,7 +56,7 @@ class ApiEndpoints {
   // Wishlist
   static const String getWishlistLessons = "normal/wishlist";
   static const String getWishlistLessonById = "normal/wishlist";
-  static const String addLessonToWishlist = "normal/wishlist/add";
+  static const String addLessonToWishlist = "normal/wishlist";
   static const String removeLessonFromWishlist = "normal/wishlist/remove";
 
   static const String createPayment = "api/payment";

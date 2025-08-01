@@ -403,7 +403,7 @@ class LessonCard extends StatelessWidget {
                               context.read<WishlistBloc>().add(
                                 ToggleWishlistLesson(
                                   userId: userId,
-                                  lessonId: lesson.id,
+                                  lesson: lesson,
                                   isInWishlist: isInWishlist,
                                 ),
                               );

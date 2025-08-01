@@ -1,6 +1,7 @@
 import 'package:batch34_b/app/share_pref/token_shared_pref.dart';
 import 'package:batch34_b/features/lesson/data/model/lesson_api_model.dart';
 import 'package:batch34_b/features/wishlist/data/data_source/wishlist_datasourse.dart';
+import 'package:batch34_b/features/wishlist/data/model/wish_lesson_api_model.dart';
 import 'package:dio/dio.dart';
 
 class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
@@ -24,17 +25,43 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
   }
 
   @override
-  Future<List<LessonModel>> getWishlistLessons(String userId) async {
+  // Future<List<LessonModel>> getWishlistLessons(String userId) async {
+  //   try {
+  //     final options = await _getAuthOptions();
+  //     final response = await dio.get('$baseUrl/$userId', options: options);
+  //     if (response.statusCode == 200) {
+  //       final List<dynamic> data = response.data['lessons'] ?? [];
+  //       for (var item in data) {
+  //         print('Item type: ${item.runtimeType}, value: $item');
+  //       }
+  //       return data.map((json) => LessonModel.fromJson(json)).toList();
+  //     } else {
+  //       throw DioException(
+  //         requestOptions: response.requestOptions,
+  //         response: response,
+  //         message: 'Failed to get wishlist lessons',
+  //       );
+  //     }
+  //   } on DioException {
+  //     rethrow;
+  //   } catch (e) {
+  //     throw DioException(
+  //       requestOptions: RequestOptions(path: '$baseUrl/$userId'),
+  //       message: 'Unexpected error: $e',
+  //     );
+  //   }
+  // }
+  @override
+  Future<List<WishLessonModel>> getWishlistLessons(String userId) async {
     try {
       final options = await _getAuthOptions();
-      final response = await dio.get('$baseUrl/$userId', options: options);
+
+      // Adjust endpoint if needed, e.g. no userId in URL if API doesn't require it
+      final response = await dio.get(baseUrl, options: options);
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data['lessons'] ?? [];
-        for (var item in data) {
-          print('Item type: ${item.runtimeType}, value: $item');
-        }
-        return data.map((json) => LessonModel.fromJson(json)).toList();
+        return data.map((json) => WishLessonModel.fromJson(json)).toList();
       } else {
         throw DioException(
           requestOptions: response.requestOptions,
@@ -46,19 +73,27 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
       rethrow;
     } catch (e) {
       throw DioException(
-        requestOptions: RequestOptions(path: '$baseUrl/$userId'),
+        requestOptions: RequestOptions(path: baseUrl),
         message: 'Unexpected error: $e',
       );
     }
   }
 
   @override
-  Future<void> addLessonToWishlist(String userId, LessonModel lesson) async {
+  Future<void> addLessonToWishlist(
+    String userId,
+    WishLessonModel lesson,
+  ) async {
     try {
       final options = await _getAuthOptions();
+
+      final body = {'lessonId': lesson.id};
+
+      print('Sending lesson to wishlist: $body'); // Simple print for debug
+
       final response = await dio.post(
-        '$baseUrl/$userId/lessons',
-        data: {'lesson_id': lesson.id},
+        baseUrl, // This should be 'http://localhost:5050/api/normal/wishlist'
+        data: body,
         options: options,
       );
 
@@ -69,11 +104,12 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
           message: 'Failed to add lesson to wishlist',
         );
       }
-    } on DioException {
+    } on DioException catch (e) {
+      print('Dio error: ${e.response?.data}'); // Use print here too
       rethrow;
     } catch (e) {
       throw DioException(
-        requestOptions: RequestOptions(path: '$baseUrl/$userId/lessons'),
+        requestOptions: RequestOptions(path: baseUrl),
         message: 'Unexpected error: $e',
       );
     }

@@ -1,3 +1,4 @@
+import 'package:batch34_b/features/course/presentation/view/%20courselistpage_view.dart';
 import 'package:flutter/material.dart';
 import 'package:batch34_b/core/common/card/course_card.dart';
 import 'package:batch34_b/features/course/domain/entity/course_entity.dart';
@@ -207,7 +208,12 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                       ),
                       TextButton(
                         onPressed: () {
-                          // TODO: Implement "See All" action
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CourseListPage(),
+                            ),
+                          );
                         },
                         child: const Text(
                           'See All',

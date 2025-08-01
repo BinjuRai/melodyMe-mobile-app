@@ -61,4 +61,6 @@ class HiveService {
   Future<void> close() async {
     await Hive.close();
   }
+
+  Future getCurrentUser() async {}
 }

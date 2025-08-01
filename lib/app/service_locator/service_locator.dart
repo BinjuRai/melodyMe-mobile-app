@@ -51,8 +51,6 @@ import 'package:batch34_b/features/course/domain/repository/course_repository.da
 import 'package:batch34_b/features/course/domain/usecase/get_all_courses.dart';
 import 'package:batch34_b/features/course/presentation/view_model/course_view_model.dart';
 
-
-
 final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
@@ -164,7 +162,7 @@ Future<void> _initSplashModule() async {
 //       apiService: serviceLocator<ApiService>(), // ✅ Only ApiService now
 //     ),
 //   );
-//  serviceLocator.registerLazySingleton<CourseLessonRemoteRepository>(() => 
+//  serviceLocator.registerLazySingleton<CourseLessonRemoteRepository>(() =>
 //  CourseLessonRemoteRepository(serviceLocator<Dio>()));
 
 //   serviceLocator.registerFactory<CourseRepository>(
@@ -172,7 +170,6 @@ Future<void> _initSplashModule() async {
 //       remoteDataSource: serviceLocator<CourseRemoteDataSource>(), lessonRemoteRepository: null,
 //     ),
 //   );
-  
 
 //   serviceLocator.registerFactory<GetAllCourses>(
 //     () => GetAllCourses(serviceLocator<CourseRepository>()),
@@ -191,14 +188,12 @@ Future<void> _initSplashModule() async {
 Future<void> _initCourseModule() async {
   // ✅ Register CourseRemoteDataSource
   serviceLocator.registerFactory<CourseRemoteDataSource>(
-    () => CourseRemoteDataSourceImpl(
-      apiService: serviceLocator<ApiService>(),
-    ),
+    () => CourseRemoteDataSourceImpl(apiService: serviceLocator<ApiService>()),
   );
 
   // ✅ Register CourseLessonRemoteRepository
   serviceLocator.registerLazySingleton<CourseLessonRemoteRepository>(
-    () => CourseLessonRemoteRepositoryImpl(serviceLocator<Dio>()),
+    () => CourseLessonRemoteRepositoryImpl(serviceLocator<ApiService>()),
   );
 
   // ✅ Register CourseRepository
@@ -233,10 +228,6 @@ Future<void> _initCourseModule() async {
   );
 }
 
-  
-
-
-
 Future<void> _initLessonModule() async {
   serviceLocator.registerFactory<LessonRemoteDataSource>(
     () => LessonRemoteDataSourceImpl(dio: serviceLocator<Dio>()),
@@ -247,10 +238,6 @@ Future<void> _initLessonModule() async {
       remoteDataSource: serviceLocator<LessonRemoteDataSource>(),
     ),
   );
-
-
-
-
 
   serviceLocator.registerFactory<GetAllLessonsUseCase>(
     () => GetAllLessonsUseCase(serviceLocator<LessonRepository>()),

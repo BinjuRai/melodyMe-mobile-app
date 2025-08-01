@@ -46,4 +46,22 @@ class UserLocalRepository implements IUserRepository {
     // TODO: implement uploadProfilePicture
     throw UnimplementedError();
   }
+  
+  @override
+  Future<Either<Failure, void>> changePassword(String oldPassword, String newPassword) {
+    // TODO: implement changePassword
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, UserEntity>> getProfile() {
+    // TODO: implement getProfile
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, UserEntity>> updateProfile(Map<String, dynamic> updates) {
+    // TODO: implement updateProfile
+    throw UnimplementedError();
+  }
 }

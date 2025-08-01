@@ -29,6 +29,50 @@ class PaymentRepositoryImpl implements PaymentRepository {
   }
 
   @override
+  // Future<PaymentEntity> createPayment(PaymentEntity payment) async {
+  //   try {
+  //     final paymentModel = PaymentModel(
+  //       id: payment.id,
+  //       pricePaid: payment.pricePaid,
+  //       paymentMethod: payment.paymentMethod,
+  //       paymentStatus: payment.paymentStatus,
+  //       paymentDate: payment.paymentDate.toIso8601String(),
+  //       userInfo: UserInfo(
+  //         id: payment.userId ?? '',
+  //         username: payment.username ?? '',
+  //         email: '', // add if available
+  //       ),
+  //       courseInfo: CourseInfo(
+  //         id: payment.courseId?? '',
+  //         title: '', // add if available
+  //       ),
+  //       lessonInfo:
+  //           payment.lessonId != null
+  //               ? LessonInfo(
+  //                 id: payment.lessonId!,
+  //                 title: '', // add if available
+  //                 price: payment.pricePaid,
+  //               )
+  //               : null,
+  //       type: payment.type,
+  //     );
+  //     final response = await dio.post(
+  //       '${baseUrl}payment',
+  //       // data: paymentModel.toJson(),
+  //       // Before: sending full JSON with nested objects
+  //       data: paymentModel.toRequestJson(),
+  //       options: Options(headers: {'Content-Type': 'application/json'}),
+  //     );
+  //     if (response.statusCode == 201) {
+  //       final createdPayment = PaymentModel.fromJson(response.data);
+  //       return createdPayment.toEntity();
+  //     } else {
+  //       throw Exception('Failed to create payment');
+  //     }
+  //   } catch (e) {
+  //     throw Exception('Error creating payment: $e');
+  //   }
+  // }
   Future<PaymentEntity> createPayment(PaymentEntity payment) async {
     try {
       final paymentModel = PaymentModel(
@@ -37,36 +81,21 @@ class PaymentRepositoryImpl implements PaymentRepository {
         paymentMethod: payment.paymentMethod,
         paymentStatus: payment.paymentStatus,
         paymentDate: payment.paymentDate.toIso8601String(),
-        userInfo: UserInfo(
-          id: payment.userId,
-          username: payment.username ?? '',
-          email: '', // add if available
-        ),
-        courseInfo: CourseInfo(
-          id: payment.courseId,
-          title: '', // add if available
-        ),
-        lessonInfo:
-            payment.lessonId != null
-                ? LessonInfo(
-                  id: payment.lessonId!,
-                  title: '', // add if available
-                  price: payment.pricePaid,
-                )
-                : null,
+        userId: payment.userId,
+        username: payment.username,
+        courseId: payment.courseId,
+        lessonId: payment.lessonId,
         type: payment.type,
       );
 
       final response = await dio.post(
         '${baseUrl}payment',
-        // data: paymentModel.toJson(),
-        // Before: sending full JSON with nested objects
         data: paymentModel.toRequestJson(),
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
 
       if (response.statusCode == 201) {
-        final createdPayment = PaymentModel.fromJson(response.data);
+        final createdPayment = PaymentModel.fromJson(response.data['payment']);
         return createdPayment.toEntity();
       } else {
         throw Exception('Failed to create payment');
@@ -110,6 +139,49 @@ class PaymentRepositoryImpl implements PaymentRepository {
   }
 
   @override
+  //   Future<PaymentEntity> updatePayment(PaymentEntity payment) async {
+  //     try {
+  //       final paymentModel = PaymentModel(
+  //         id: payment.id,
+  //         pricePaid: payment.pricePaid,
+  //         paymentMethod: payment.paymentMethod,
+  //         paymentStatus: payment.paymentStatus,
+  //         paymentDate: payment.paymentDate.toIso8601String(),
+  //         userInfo: UserInfo(
+  //           id: payment.userId?? '',
+  //           username: payment.username ?? '',
+  //           email: '', // add if available
+  //         ),
+  //         courseInfo: CourseInfo(
+  //           id: payment.courseId?? '',
+  //           title: '', // add if available
+  //         ),
+  //         lessonInfo:
+  //             payment.lessonId != null
+  //                 ? LessonInfo(
+  //                   id: payment.lessonId!,
+  //                   title: '', // add if available
+  //                   price: payment.pricePaid,
+  //                 )
+  //                 : null,
+  //         type: payment.type,
+  //       );
+  //       final response = await dio.put(
+  //         '${baseUrl}payment/${payment.id}',
+  //         data: paymentModel.toJson(),
+  //         options: Options(headers: {'Content-Type': 'application/json'}),
+  //       );
+  //       if (response.statusCode == 200) {
+  //         final updatedPayment = PaymentModel.fromJson(response.data);
+  //         return updatedPayment.toEntity();
+  //       } else {
+  //         throw Exception('Failed to update payment');
+  //       }
+  //     } catch (e) {
+  //       throw Exception('Error updating payment: $e');
+  //     }
+  //   }
+  // }
   Future<PaymentEntity> updatePayment(PaymentEntity payment) async {
     try {
       final paymentModel = PaymentModel(
@@ -118,34 +190,21 @@ class PaymentRepositoryImpl implements PaymentRepository {
         paymentMethod: payment.paymentMethod,
         paymentStatus: payment.paymentStatus,
         paymentDate: payment.paymentDate.toIso8601String(),
-        userInfo: UserInfo(
-          id: payment.userId,
-          username: payment.username ?? '',
-          email: '', // add if available
-        ),
-        courseInfo: CourseInfo(
-          id: payment.courseId,
-          title: '', // add if available
-        ),
-        lessonInfo:
-            payment.lessonId != null
-                ? LessonInfo(
-                  id: payment.lessonId!,
-                  title: '', // add if available
-                  price: payment.pricePaid,
-                )
-                : null,
+        userId: payment.userId,
+        username: payment.username,
+        courseId: payment.courseId,
+        lessonId: payment.lessonId,
         type: payment.type,
       );
 
       final response = await dio.put(
         '${baseUrl}payment/${payment.id}',
-        data: paymentModel.toJson(),
+        data: paymentModel.toRequestJson(),
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
 
       if (response.statusCode == 200) {
-        final updatedPayment = PaymentModel.fromJson(response.data);
+        final updatedPayment = PaymentModel.fromJson(response.data['payment']);
         return updatedPayment.toEntity();
       } else {
         throw Exception('Failed to update payment');

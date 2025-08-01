@@ -48,7 +48,10 @@ class CourseRepositoryImpl implements CourseRepository {
   }
 
   @override
-  Future<Either<Failure, CourseApiModel>> createCourse(String name, File? image) async {
+  Future<Either<Failure, CourseApiModel>> createCourse(
+    String name,
+    File? image,
+  ) async {
     try {
       final result = await remoteDataSource.createCourse(name, image);
       return Right(result);
@@ -58,26 +61,51 @@ class CourseRepositoryImpl implements CourseRepository {
   }
 
   @override
-  Future<Either<Failure, CourseApiModel>> updateCourse(String id, String name, {File? image}) async {
+  Future<Either<Failure, CourseApiModel>> updateCourse(
+    String id,
+    String name, {
+    File? image,
+  }) async {
     try {
-      final result = await remoteDataSource.updateCourse(id, name, image: image);
+      final result = await remoteDataSource.updateCourse(
+        id,
+        name,
+        image: image,
+      );
       return Right(result);
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
     }
   }
 
-  @override
-  Future<Either<Failure, List<LessonEntity>>> getLessonsByCourse(String courseId) async {
-    try {
-          print('📦 getLessonsByCourse called with courseId: $courseId');
+  // @override
+  // Future<Either<Failure, List<LessonEntity>>> getLessonsByCourse(String courseId) async {
+  //   try {
+  //         print('📦 getLessonsByCourse called with courseId: $courseId');
 
-      final lessons = await lessonRemoteRepository.fetchLessonsByCourse(courseId);
+  //     final lessons = await lessonRemoteRepository.fetchLessonsByCourse(courseId);
+  //     final entities = lessons.map((e) => e.toEntity()).toList();
+  //     return Right(entities);
+  //   } catch (e) {
+  //         print('❌ Error in getLessonsByCourse: $e');
+
+  //     return Left(ServerFailure(message: e.toString()));
+  //   }
+  // }
+  @override
+  Future<Either<Failure, List<LessonEntity>>> getLessonsByCourse(
+    String courseId,
+  ) async {
+    try {
+      print('📦 getLessonsByCourse called with courseId: $courseId');
+      final lessons = await lessonRemoteRepository.fetchLessonsByCourse(
+        courseId,
+      );
+      print('✅ getLessonsByCourse success: fetched ${lessons.length} lessons');
       final entities = lessons.map((e) => e.toEntity()).toList();
       return Right(entities);
     } catch (e) {
-          print('❌ Error in getLessonsByCourse: $e');
-
+      print('❌ Error in getLessonsByCourse: $e');
       return Left(ServerFailure(message: e.toString()));
     }
   }

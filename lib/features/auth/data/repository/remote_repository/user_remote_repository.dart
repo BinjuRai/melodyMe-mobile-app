@@ -54,4 +54,22 @@ class UserRemoteRepository implements IUserRepository {
       return Left(RemoteDatabaseFailure(message: e.toString()));
     }
   }
+  
+  @override
+  Future<Either<Failure, void>> changePassword(String oldPassword, String newPassword) {
+    // TODO: implement changePassword
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, UserEntity>> getProfile() {
+    // TODO: implement getProfile
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, UserEntity>> updateProfile(Map<String, dynamic> updates) {
+    // TODO: implement updateProfile
+    throw UnimplementedError();
+  }
 }

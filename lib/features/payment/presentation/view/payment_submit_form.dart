@@ -86,9 +86,10 @@ class _PaymentFormViewState extends State<PaymentFormView> {
       final payment = PaymentEntity(
         id: '',
         userId: userId!,
-        username: _usernameController.text,
+        username: _usernameController.text, // ✅ Set username here
+        // username: _usernameController.text,
         courseId: widget.lesson.courseId!,
-        courseTitle: widget.lesson.name,
+        // courseTitle: widget.lesson.name,
         lessonId: widget.lesson.id,
         lessonTitle: widget.lesson.name,
         pricePaid: widget.lesson.price,

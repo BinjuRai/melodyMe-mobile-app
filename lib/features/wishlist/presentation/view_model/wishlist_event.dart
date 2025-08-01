@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:batch34_b/features/lesson/domain/entity/lesson_entity.dart';
 
 abstract class WishlistEvent extends Equatable {
   const WishlistEvent();
@@ -18,15 +19,15 @@ class LoadWishlist extends WishlistEvent {
 
 class ToggleWishlistLesson extends WishlistEvent {
   final String userId;
-  final String lessonId;
+  final LessonEntity lesson; 
   final bool isInWishlist;
 
   const ToggleWishlistLesson({
     required this.userId,
-    required this.lessonId,
+    required this.lesson,
     required this.isInWishlist,
   });
 
   @override
-  List<Object?> get props => [userId, lessonId, isInWishlist];
+  List<Object?> get props => [userId, lesson, isInWishlist];
 }
