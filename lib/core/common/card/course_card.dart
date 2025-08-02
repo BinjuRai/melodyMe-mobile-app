@@ -80,7 +80,7 @@ class CourseCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '\$${course.totalPrice.toStringAsFixed(2)}',
+                            'NPR ${course.totalPrice.toStringAsFixed(2)}',
                             style: TextStyle(
                               color: deepPurple.withOpacity(0.7),
                               fontSize: 14,

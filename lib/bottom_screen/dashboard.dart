@@ -1,3 +1,5 @@
+import 'package:batch34_b/core/common/sensor/themeviewmodel/theme_bloc.dart';
+import 'package:batch34_b/core/common/sensor/themeviewmodel/theme_event.dart';
 import 'package:batch34_b/features/auth/data/repository/user_repository_impl.dart';
 import 'package:batch34_b/features/auth/presentation/view/profile_view.dart';
 import 'package:batch34_b/features/home/presentation/view/home_view.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:batch34_b/features/course/presentation/view/ courselistpage_view.dart';
 import 'package:batch34_b/features/lesson/presentation/view/lesson_view.dart';
 import 'package:batch34_b/features/wishlist/presentation/view/wishlist_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -84,6 +87,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
               );
             },
           ),
+
+          /// 🚨 Only show this button on iOS for debugging (you can remove this in production)
+          if (Theme.of(context).platform == TargetPlatform.iOS)
+            IconButton(
+              icon: Icon(Icons.brightness_6, color: Colors.amberAccent),
+              tooltip: 'Toggle Theme (Sim)',
+              onPressed: () {
+                context.read<ThemeBloc>().add(ToggleThemeEvent());
+              },
+            ),
         ],
       ),
       body: _screens[_selectedIndex],

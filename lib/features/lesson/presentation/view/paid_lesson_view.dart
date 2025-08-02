@@ -9,8 +9,15 @@ class PaidLessonView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF222740),
       appBar: AppBar(
-        title: Text(lesson.name.isNotEmpty ? lesson.name : 'Lesson Details'),
+        backgroundColor: const Color(0xFF222740),
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: Text(
+          lesson.name.isNotEmpty ? lesson.name : 'Lesson Details',
+          style: const TextStyle(color: Colors.white),
+        ),
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -20,10 +27,10 @@ class PaidLessonView extends StatelessWidget {
             // Image
             if (lesson.imagePath != null)
               ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(16),
                 child: Image.network(
                   lesson.imagePath!,
-                  height: 200,
+                  height: 220,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
@@ -33,24 +40,36 @@ class PaidLessonView extends StatelessWidget {
                 height: 200,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(12),
+                  color: const Color(0xFFDDE1F0),
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                child: const Center(child: Text("No Image")),
+                child: const Center(
+                  child: Text(
+                    "No Image",
+                    style: TextStyle(color: Colors.black54),
+                  ),
+                ),
               ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
 
-            // Name
+            // Lesson Name
             Text(
               lesson.name,
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(height: 8),
 
             // Author
             Text(
               "By: ${lesson.authorName}",
-              style: Theme.of(context).textTheme.titleMedium,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color(0xFFF0C5CE),
+              ),
             ),
             const SizedBox(height: 8),
 
@@ -58,33 +77,54 @@ class PaidLessonView extends StatelessWidget {
             if (lesson.courseName != null)
               Text(
                 "Course: ${lesson.courseName!}",
-                style: Theme.of(context).textTheme.titleSmall,
+                style: const TextStyle(
+                  fontSize: 15,
+                  color: Color(0xFFDDE1F0),
+                ),
               ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
 
             // Description
             Text(
               lesson.description,
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white70,
+                height: 1.5,
+              ),
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 32),
 
-            // File path (if needed to show download/view button)
+            // File Download Button or Notice
             if (lesson.filePath != null)
-              ElevatedButton.icon(
-                onPressed: () {
-                  // Handle file action
-                  // For example, open PDF or download
-                },
-                icon: const Icon(Icons.download),
-                label: const Text("Access Lesson File"),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFF0C5CE),
+                    foregroundColor: const Color(0xFF222740),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 2,
+                  ),
+                  onPressed: () {
+                    // TODO: Handle file action
+                  },
+                  icon: const Icon(Icons.download),
+                  label: const Text(
+                    "Access Lesson File",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
               )
             else
               const Text(
                 "No lesson file available.",
-                style: TextStyle(color: Colors.red),
+                style: TextStyle(color: Colors.redAccent),
               ),
           ],
         ),

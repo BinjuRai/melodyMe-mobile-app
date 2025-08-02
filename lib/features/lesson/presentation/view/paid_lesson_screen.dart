@@ -16,7 +16,10 @@ class PaidLessonScreen extends StatelessWidget {
       value: BlocProvider.of<LessonBloc>(context)
         ..add(LoadLessonByIdEvent(lessonId: lessonId)),
       child: Scaffold(
-        appBar: AppBar(title: const Text('Lesson Detail')),
+        appBar: AppBar(
+          title: const Text('Lesson Detail'),
+          foregroundColor: const Color(0xFF222740),
+        ),
         body: BlocBuilder<LessonBloc, LessonState>(
           builder: (context, state) {
             if (state is LessonDetailLoadingState) {

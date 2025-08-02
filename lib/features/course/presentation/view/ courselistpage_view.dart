@@ -133,6 +133,12 @@ class _CourseListPageState extends State<CourseListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Explore our courses'),
+        backgroundColor: Colors.white,
+        foregroundColor: const Color(0xFF222740),
+        elevation: 0,
+      ),
       // appBar: AppBar(title: const Text('My Courses')),
       body: BlocBuilder<CourseBloc, CourseState>(
         builder: (context, state) {

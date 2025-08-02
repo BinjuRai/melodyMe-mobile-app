@@ -85,7 +85,7 @@ class LessonRemoteDataSourceImpl implements LessonRemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, LessonModel?>> getLessonById(String id) async {
+  Future<Either<Failure, LessonModel>> getLessonById(String id) async {
     try {
       final response = await dio.get('/admin/lesson/$id');
 
@@ -111,6 +111,33 @@ class LessonRemoteDataSourceImpl implements LessonRemoteDataSource {
       return Left(ServerFailure(message: 'Unexpected error: $e'));
     }
   }
+
+  // Future<Either<Failure, LessonModel?>> getLessonById(String id) async {
+  //   try {
+  //     final response = await dio.get('/admin/lesson/$id');
+
+  //     if (response.statusCode == 200) {
+  //       final data = response.data;
+
+  //       if (data['success'] == true && data['data'] != null) {
+  //         final lesson = LessonModel.fromJson(data['data']);
+  //         return Right(lesson);
+  //       } else {
+  //         return Left(
+  //           ServerFailure(message: data['message'] ?? 'Lesson not found'),
+  //         );
+  //       }
+  //     } else {
+  //       return Left(
+  //         ServerFailure(message: 'Server error: ${response.statusCode}'),
+  //       );
+  //     }
+  //   } on DioException catch (e) {
+  //     return Left(_handleDioError(e));
+  //   } catch (e) {
+  //     return Left(ServerFailure(message: 'Unexpected error: $e'));
+  //   }
+  // }
 
   Failure _handleDioError(DioException e) {
     switch (e.type) {

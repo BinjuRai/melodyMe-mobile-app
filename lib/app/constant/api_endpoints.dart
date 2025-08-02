@@ -9,8 +9,8 @@ class ApiEndpoints {
   static const Duration receiveTimeout = Duration(seconds: 10);
 
   // For iOS Simulator
-  // static const String serverAddress = "http://localhost:5050";
-  static const String serverAddress = "http://192.168.1.80:5050";
+  static const String serverAddress = "http://localhost:5050";
+  // static const String serverAddress = "http://192.168.1.80:5050";
 
   // For iPhone (uncomment if needed)
   // static const String baseUrl = "$serverAddress/api/v1/";
@@ -31,14 +31,8 @@ class ApiEndpoints {
   static const String updateProfile = 'auth/profile';
   static const String changePassword = 'auth/change-password';
 
-  // static const String createCourse = "course";
   static const String getAllCourse = "admin/courses";
-  // static const String getCourseById = "admin/course/:id";
-  // static const String createCourse = "admin/course";
-  // static const String updateCourse = "admin/course/:id";
-  // static const String deleteCourse = "admin/course/:id";
-  // static const String getAllCourses = "admin/courses";
-  // static const String getCourseLessons = "admin/course/:id/lessons";
+
   static const String getCourseById =
       "admin/courses/:id"; // GET /api/admin/courses/:id
   static const String createCourse = "admin/courses"; // POST /api/admin/courses
@@ -62,26 +56,4 @@ class ApiEndpoints {
   static const String createPayment = "api/payment";
   static const String getAllPayments = "api/payment";
   static const String getPaymentById = "api/payment";
-
-  // static const String createLesson = "admin/lessons";
-  // static const String updateLesson = "admin/lessons/";
-  // static const String deleteLesson = "admin/lessons/";
-
-  // static const String login = "auth/login";
-  // static const String register = "auth/register";
-  // static const String getAllStudent = "auth/getAllStudents";
-  // static const String getStudentsByBatch = "auth/getStudentsByBatch/";
-  // static const String getStudentsByCourse = "auth/getStudentsByCourse/";
-  // static const String updateUser = "auth/updateUser/";
-  // static const String deleteStudent = "auth/deleteStudent/";
-
-  // // Batch
-  // static const String createBatch = "batch/createBatch";
-  // static const String getAllBatch = "batch/getAllBatches";
-  // static const String deleteBatch = "batch/";
-
-  // // // Course
-  // static const String createCourse = "course/createCourse";
-  // static const String getAllCourse = "course/getAllCourse";
-  // Course endpoints
 }

@@ -436,7 +436,6 @@ class LessonCard extends StatelessWidget {
   Widget _buildLessonImage() {
     final String? imagePath = lesson.imagePath;
     final hasImage = imagePath != null && imagePath.isNotEmpty;
-    
 
     String? fullImageUrl;
     if (hasImage) {
@@ -469,7 +468,7 @@ class LessonCard extends StatelessWidget {
     return Chip(
       backgroundColor: pinkPastel.withOpacity(0.4),
       label: Text(
-        '\$${lesson.price.toStringAsFixed(2)}',
+        'NPR ${lesson.price.toStringAsFixed(2)}',
         style: TextStyle(color: darkBlue, fontWeight: FontWeight.bold),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),

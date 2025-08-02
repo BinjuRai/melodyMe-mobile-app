@@ -116,8 +116,8 @@ class UserViewCourseDetailScreen extends StatelessWidget {
       backgroundColor: const Color(0xFF222740),
       appBar: AppBar(
         title: const Text('Course Detail'),
-        backgroundColor: const Color(0xFF222740),
-        foregroundColor: Colors.white,
+        backgroundColor: Colors.white,
+        foregroundColor: const Color(0xFF222740),
         elevation: 0,
       ),
       body: BlocBuilder<CourseDetailBloc, CourseDetailState>(
@@ -145,7 +145,7 @@ class UserViewCourseDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Price: \$${course.totalPrice.toStringAsFixed(2)}',
+                    'Price:  NPR ${course.totalPrice.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontSize: 16,
                       color: Color(0xFFF0C5CE),

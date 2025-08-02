@@ -35,7 +35,13 @@ class _LessonViewState extends State<LessonView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Lessons'),
+      appBar: AppBar(
+        title: const Text('Explore our lessons'),
+        backgroundColor: Colors.white,
+        foregroundColor: const Color(0xFF222740),
+        elevation: 0,
+      ),
+     
       body: Column(
         children: [
           Padding(
@@ -124,7 +130,11 @@ class _LessonViewState extends State<LessonView> {
         final lesson = lessons[index];
         return Padding(
           padding: const EdgeInsets.only(bottom: 12.0),
-          child: LessonCard(lesson: lesson, onTap: () => _onLessonTap(lesson), userId: '',),
+          child: LessonCard(
+            lesson: lesson,
+            onTap: () => _onLessonTap(lesson),
+            userId: '',
+          ),
         );
       },
     );
