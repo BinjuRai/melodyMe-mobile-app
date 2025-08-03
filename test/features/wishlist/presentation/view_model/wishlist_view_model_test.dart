@@ -39,29 +39,29 @@ void main() {
     blocTest<WishlistBloc, WishlistState>(
       'emits [WishlistLoading, WishlistLoaded] on success',
       build: () {
-        when(() => mockRepository.getWishlistLessons(userId))
-            .thenAnswer((_) async => Right([lesson]));
+        when(
+          () => mockRepository.getWishlistLessons(userId),
+        ).thenAnswer((_) async => Right([lesson]));
         return wishlistBloc;
       },
       act: (bloc) => bloc.add(const LoadWishlist(userId: userId)),
-      expect: () => [
-        WishlistLoading(),
-        WishlistLoaded([lesson]),
-      ],
+      expect:
+          () => [
+            WishlistLoading(),
+            WishlistLoaded([lesson]),
+          ],
     );
 
     blocTest<WishlistBloc, WishlistState>(
       'emits [WishlistLoading, WishlistError] on failure',
       build: () {
-        when(() => mockRepository.getWishlistLessons(userId))
-            .thenAnswer((_) async => Left(ServerFailure(message: 'Failed')));
+        when(
+          () => mockRepository.getWishlistLessons(userId),
+        ).thenAnswer((_) async => Left(ServerFailure(message: 'Failed')));
         return wishlistBloc;
       },
       act: (bloc) => bloc.add(const LoadWishlist(userId: userId)),
-      expect: () => [
-        WishlistLoading(),
-        isA<WishlistError>(),
-      ],
+      expect: () => [WishlistLoading(), isA<WishlistError>()],
     );
   });
 
@@ -69,49 +69,64 @@ void main() {
     blocTest<WishlistBloc, WishlistState>(
       'removes lesson from wishlist',
       build: () {
-        when(() => mockRepository.removeLessonFromWishlist(userId, lesson.id))
-            .thenAnswer((_) async => const Right(null));
+        when(
+          () => mockRepository.removeLessonFromWishlist(userId, lesson.id),
+        ).thenAnswer((_) async => const Right(null));
         return wishlistBloc;
       },
       seed: () => WishlistLoaded([lesson]),
-      act: (bloc) => bloc.add(
-        ToggleWishlistLesson(userId: userId, lesson: lesson, isInWishlist: true),
-      ),
-      expect: () => [
-        WishlistLoaded([]),
-      ],
+      act:
+          (bloc) => bloc.add(
+            ToggleWishlistLesson(
+              userId: userId,
+              lesson: lesson,
+              isInWishlist: true,
+            ),
+          ),
+      expect: () => [WishlistLoaded([])],
     );
 
     blocTest<WishlistBloc, WishlistState>(
       'adds lesson to wishlist',
       build: () {
-        when(() => mockRepository.addLessonToWishlist(userId, lesson))
-            .thenAnswer((_) async => const Right(null));
+        when(
+          () => mockRepository.addLessonToWishlist(userId, lesson),
+        ).thenAnswer((_) async => const Right(null));
         return wishlistBloc;
       },
       seed: () => WishlistLoaded([]),
-      act: (bloc) => bloc.add(
-        ToggleWishlistLesson(userId: userId, lesson: lesson, isInWishlist: false),
-      ),
-      expect: () => [
-        WishlistLoaded([lesson]),
-      ],
+      act:
+          (bloc) => bloc.add(
+            ToggleWishlistLesson(
+              userId: userId,
+              lesson: lesson,
+              isInWishlist: false,
+            ),
+          ),
+      expect:
+          () => [
+            WishlistLoaded([lesson]),
+          ],
     );
 
     blocTest<WishlistBloc, WishlistState>(
       'emits WishlistError when add fails',
       build: () {
-        when(() => mockRepository.addLessonToWishlist(userId, lesson))
-            .thenAnswer((_) async => Left(ServerFailure(message: 'Failed')));
+        when(
+          () => mockRepository.addLessonToWishlist(userId, lesson),
+        ).thenAnswer((_) async => Left(ServerFailure(message: 'Failed')));
         return wishlistBloc;
       },
       seed: () => WishlistLoaded([]),
-      act: (bloc) => bloc.add(
-        ToggleWishlistLesson(userId: userId, lesson: lesson, isInWishlist: false),
-      ),
-      expect: () => [
-        isA<WishlistError>(),
-      ],
+      act:
+          (bloc) => bloc.add(
+            ToggleWishlistLesson(
+              userId: userId,
+              lesson: lesson,
+              isInWishlist: false,
+            ),
+          ),
+      expect: () => [isA<WishlistError>()],
     );
   });
 }

@@ -168,6 +168,53 @@ class CourseCard extends StatelessWidget {
     );
   }
 
+  //   Widget _buildCourseImage() {
+  //     final String? filepath = course.filepath;
+  //     final hasImage = filepath != null && filepath.isNotEmpty;
+
+  //     String? fullImageUrl;
+  //     if (hasImage) {
+  //       final cleanPath =
+  //           filepath.startsWith('/') ? filepath.substring(1) : filepath;
+  //       fullImageUrl = ApiEndpoints.imageUrl + cleanPath;
+  //     }
+
+  //     return ClipRRect(
+  //       borderRadius: BorderRadius.circular(16),
+  //       child:
+  //           hasImage
+  //               ? CachedNetworkImage(
+  //                 imageUrl: fullImageUrl!,
+  //                 width: 90,
+  //                 height: 110,
+  //                 fit: BoxFit.cover,
+  //                 placeholder:
+  //                     (context, url) => Container(
+  //                       width: 90,
+  //                       height: 110,
+  //                       color: Colors.pink[50],
+  //                       child: const Center(
+  //                         child: CircularProgressIndicator(strokeWidth: 2),
+  //                       ),
+  //                     ),
+  //                 errorWidget:
+  //                     (context, url, error) => Image.asset(
+  //                       'assets/images/vocal.png',
+  //                       width: 90,
+  //                       height: 110,
+  //                       fit: BoxFit.cover,
+  //                     ),
+  //               )
+  //               : Image.asset(
+  //                 'assets/images/vocals.png',
+  //                 width: 90,
+  //                 height: 110,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //     );
+  //   }
+  // }
+
   Widget _buildCourseImage() {
     final String? filepath = course.filepath;
     final hasImage = filepath != null && filepath.isNotEmpty;
@@ -202,7 +249,13 @@ class CourseCard extends StatelessWidget {
                       width: 90,
                       height: 110,
                       color: Colors.purple[50],
-                      child: const Icon(Icons.broken_image, size: 32),
+                      child: Image.asset(
+                        'assets/images/vocals.png',
+                        width: 90,
+                        height: 110,
+                        fit: BoxFit.cover,
+                      ),
+                      // child: const Icon(Icons.broken_image, size: 32),
                     ),
               )
               : Container(

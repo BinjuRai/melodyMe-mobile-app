@@ -147,6 +147,7 @@ class CourseRemoteDataSourceImpl implements CourseRemoteDataSource {
     try {
       final response = await apiService.dio.get('$baseUrl/$id');
       final data = response.data['data'];
+      
       return CourseApiModel.fromJson(data);
     } on DioException catch (e) {
       throw Exception(_handleDioError(e));

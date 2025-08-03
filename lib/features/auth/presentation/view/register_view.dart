@@ -264,6 +264,9 @@ class RegistrationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       appBar: AppBar(
+        foregroundColor: const Color(0xFF222740),
+      ),
       backgroundColor: const Color(0xFFDDE1F0),
       body: SafeArea(
         child: Center(

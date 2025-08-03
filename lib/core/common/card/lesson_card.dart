@@ -459,7 +459,13 @@ class LessonCard extends StatelessWidget {
           (context, url, error) => Container(
             height: 180,
             color: const Color(0xFFE6E0F8).withOpacity(0.5),
-            child: const Icon(Icons.broken_image, size: 48, color: Colors.grey),
+            child: Image.asset(
+              'assets/images/img2.png',
+              width: 90,
+              height: 110,
+              fit: BoxFit.cover,
+            ),
+            // child: const Icon(Icons.broken_image, size: 48, color: Colors.grey),
           ),
     );
   }

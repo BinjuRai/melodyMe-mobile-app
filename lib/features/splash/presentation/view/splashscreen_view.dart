@@ -108,6 +108,7 @@ class _SplashscreenViewState extends State<SplashscreenView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(foregroundColor: const Color(0xFF222740)),
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
