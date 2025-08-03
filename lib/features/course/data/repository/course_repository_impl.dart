@@ -97,35 +97,4 @@ class CourseRepositoryImpl implements CourseRepository {
     }
   }
 
-  // @override
-  // Future<Either<Failure, List<LessonEntity>>> getLessonsByCourse(
-  //   String courseId,
-  // ) async {
-  //   try {
-  //     print('📦 getLessonsByCourse called with courseId: $courseId');
-  //     final lessons = await lessonRemoteRepository.fetchLessonsByCourse(
-  //       courseId,
-  //     );
-  //     print('✅ getLessonsByCourse success: fetched ${lessons.length} lessons');
-  //     final entities = lessons.map((e) => e.toEntity()).toList();
-  //     return Right(entities);
-  //   } catch (e) {
-  //     print('❌ Error in getLessonsByCourse: $e');
-  //     return Left(ServerFailure(message: e.toString()));
-  //   }
-  // }
-
-  // @override
-  // Future<Either<Failure, List<LessonEntity>>> getLessonsByCourse(
-  //   String courseId,
-  // ) async {
-  //   try {
-  //     final lessonModels = await remoteDataSource.getLessonsByCourse(courseId);
-  //     final lessonEntities =
-  //         lessonModels.map((model) => model.toEntity()).toList();
-  //     return Right(lessonEntities);
-  //   } catch (e) {
-  //     return Left(ServerFailure(message: e.toString()));
-  //   }
-  // }
 }

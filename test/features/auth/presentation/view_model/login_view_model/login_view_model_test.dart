@@ -79,40 +79,7 @@ void main() {
       ).called(1);
     });
 
-    // testWidgets('emits failure state when login fails', (tester) async {
-    // Arrange
-    //   when(() => userLoginUsecase.call(any())).thenAnswer(
-    //     (_) async =>
-    //         Left(RemoteDatabaseFailure(message: 'Invalid credentials')),
-    //   );
-
-    //   BuildContext? testContext;
-
-    //   await tester.pumpWidget(
-    //     MaterialApp(
-    //       home: Scaffold(
-    //         body: Builder(
-    //           builder: (context) {
-    //             testContext = context;
-    //             return const SizedBox();
-    //           },
-    //         ),
-    //       ),
-    //     ),
-    //   );
-
-    //   // Act
-    //   loginViewModel.add(
-    //     LoginWithEmailAndPasswordEvent(
-    //       email: email,
-    //       password: password,
-    //       context: testContext!,
-    //     ),
-    //   );
-
-    //   await tester.pumpAndSettle();
-
-    //   // Assert
+  
     //   expect(loginViewModel.state.isLoading, false);
     //   expect(loginViewModel.state.isSuccess, true);
     //   verify(

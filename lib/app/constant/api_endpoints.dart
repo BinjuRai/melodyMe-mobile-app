@@ -3,8 +3,7 @@ class ApiEndpoints {
 
   // Timeouts
 
-  // static const connectionTimeout = Duration(seconds: 1000);
-  // static const receiveTimeout = Duration(seconds: 1000);
+  
   static const Duration connectionTimeout = Duration(seconds: 10);
   static const Duration receiveTimeout = Duration(seconds: 10);
 
@@ -13,13 +12,10 @@ class ApiEndpoints {
   static const String serverAddress = "http://192.168.1.71:5050";
 
   // For iPhone (uncomment if needed)
-  // static const String baseUrl = "$serverAddress/api/v1/";
-  // static const String imageUrl = "$baseUrl/uploads/";
+
   static const String baseUrl = "$serverAddress/api/";
   static const String imageUrl = "$serverAddress/";
 
-  // static const String imageUrl = "$baseUrl/uploads/";
-  // static const String imageUrl = "http://10.0.2.2:5050/api/";
 
   // Auth
 

@@ -23,34 +23,9 @@ class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
       },
     );
   }
+ 
 
-  @override
-  // Future<List<LessonModel>> getWishlistLessons(String userId) async {
-  //   try {
-  //     final options = await _getAuthOptions();
-  //     final response = await dio.get('$baseUrl/$userId', options: options);
-  //     if (response.statusCode == 200) {
-  //       final List<dynamic> data = response.data['lessons'] ?? [];
-  //       for (var item in data) {
-  //         print('Item type: ${item.runtimeType}, value: $item');
-  //       }
-  //       return data.map((json) => LessonModel.fromJson(json)).toList();
-  //     } else {
-  //       throw DioException(
-  //         requestOptions: response.requestOptions,
-  //         response: response,
-  //         message: 'Failed to get wishlist lessons',
-  //       );
-  //     }
-  //   } on DioException {
-  //     rethrow;
-  //   } catch (e) {
-  //     throw DioException(
-  //       requestOptions: RequestOptions(path: '$baseUrl/$userId'),
-  //       message: 'Unexpected error: $e',
-  //     );
-  //   }
-  // }
+
   @override
   Future<List<WishLessonModel>> getWishlistLessons(String userId) async {
     try {

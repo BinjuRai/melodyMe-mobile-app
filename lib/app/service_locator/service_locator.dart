@@ -159,35 +159,7 @@ Future<void> _initSplashModule() async {
   );
 }
 
-// Future<void> _initCourseModule() async {
-//   serviceLocator.registerFactory<CourseRemoteDataSource>(
-//     () => CourseRemoteDataSourceImpl(
-//       apiService: serviceLocator<ApiService>(), // ✅ Only ApiService now
-//     ),
-//   );
-//  serviceLocator.registerLazySingleton<CourseLessonRemoteRepository>(() =>
-//  CourseLessonRemoteRepository(serviceLocator<Dio>()));
 
-//   serviceLocator.registerFactory<CourseRepository>(
-//     () => CourseRepositoryImpl(
-//       remoteDataSource: serviceLocator<CourseRemoteDataSource>(), lessonRemoteRepository: null,
-//     ),
-//   );
-
-//   serviceLocator.registerFactory<GetAllCourses>(
-//     () => GetAllCourses(serviceLocator<CourseRepository>()),
-//   );
-
-//   serviceLocator.registerFactory<CourseBloc>(
-//     () => CourseBloc(getAllCourses: serviceLocator<GetAllCourses>()),
-//   );
-//   serviceLocator.registerFactory<CourseRepository>(
-//   () => CourseRepositoryImpl(
-//     remoteDataSource: serviceLocator<CourseRemoteDataSource>(),
-//     lessonRemoteRepository: serviceLocator<CourseLessonRemoteRepository>(),
-//   ),
-// );
-// }
 Future<void> _initCourseModule() async {
   // ✅ Register CourseRemoteDataSource
   serviceLocator.registerFactory<CourseRemoteDataSource>(

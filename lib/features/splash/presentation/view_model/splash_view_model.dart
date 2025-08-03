@@ -2,21 +2,7 @@ import 'package:batch34_b/features/auth/presentation/view/register_view.dart';
 import 'package:flutter/material.dart';
 import 'package:batch34_b/features/auth/presentation/view/login_view.dart';
 
-// class SplashViewModel {
-//   void navigateToLogin(BuildContext context) {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(builder: (context) =>  LoginView()),
-//     );
-//   }
 
-//   void navigateToSignup(BuildContext context) {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(builder: (context) =>  RegistrationView()),
-//     );
-//   }
-// }
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 

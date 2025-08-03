@@ -283,30 +283,4 @@ void main() {
 
     expect(find.text('Invalid credentials. Please try again.'), findsOneWidget);
   });
-
-  // testWidgets('navigates on successful login', (tester) async {
-  //   when(() => mockUserLoginUsecase(any()))
-  //     .thenAnswer((_) async => const Right('token_123'));
-
-  //   await tester.pumpWidget(buildLoginScreen());
-  //   await tester.enterText(find.byType(TextFormField).at(0), 'user@example.com');
-  //   await tester.enterText(find.byType(TextFormField).at(1), 'password123');
-
-  //   await tester.tap(find.text('🎧 Login'));
-  //   await tester.pumpAndSettle();
-
-  //   // Screen after navigating should contain "Dashboard"
-  //   expect(find.text('Dashboard'), findsOneWidget);
-  // });
-
-  // testWidgets('register button triggers navigation event', (tester) async {
-  //   await tester.pumpWidget(buildLoginScreen());
-  //   await tester.tap(find.text("Don't have an account? Register 🎤"));
-  //   await tester.pumpAndSettle();
-
-  //   // Check you navigated to register page or event was added
-  //   // You might verify a mock call if using navigation logic in bloc
-  //   // For simplicity, check that the register text exists
-  //   expect(find.textContaining('Register'), findsOneWidget);
-  // });
 }

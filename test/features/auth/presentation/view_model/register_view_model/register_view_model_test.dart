@@ -199,52 +199,7 @@ void main() {
         mockFile = MockFile();
       });
 
-      // blocTest<RegisterViewModel, RegisterState>(
-      //   'emits success state when image upload succeeds',
-      //   build: () => registerViewModel,
-      //   setUp: () {
-      //     when(() => mockUploadImageUsecase.call(any()))
-      //         .thenAnswer((_) async => const Right(imageName));
-      //   },
-      //   act: (bloc) => bloc.add(UploadImageEvent(file: mockFile)),
-      //   expect: () => [
-      //     predicate<RegisterState>((state) => state.isLoading == true),
-      //     predicate<RegisterState>((state) => 
-      //       state.isLoading == false && 
-      //       state.isSuccess == true && 
-      //       state.imageName == imageName),
-      //   ],
-      //   verify: (_) {
-      //     verify(() => mockUploadImageUsecase.call(
-      //       UploadImageParams(file: mockFile),
-      //     )).called(1);
-      //     verifyNever(() => mockUserRegisterUsecase.call(any()));
-      //   },
-      // );
-
-      // blocTest<RegisterViewModel, RegisterState>(
-      //   'emits failure state when image upload fails',
-      //   build: () => registerViewModel,
-      //   setUp: () {
-      //     when(() => mockUploadImageUsecase.call(any()))
-      //         .thenAnswer((_) async => Left(
-      //           RemoteDatabaseFailure(message: 'Upload failed'),
-      //         ));
-      //   },
-      //   act: (bloc) => bloc.add(UploadImageEvent(file: mockFile)),
-      //   expect: () => [
-      //     predicate<RegisterState>((state) => state.isLoading == true),
-      //     predicate<RegisterState>((state) => 
-      //       state.isLoading == false && state.isSuccess == false),
-      //   ],
-      //   verify: (_) {
-      //     verify(() => mockUploadImageUsecase.call(
-      //       UploadImageParams(file: mockFile),
-      //     )).called(1);
-      //     verifyNever(() => mockUserRegisterUsecase.call(any()));
-      //   },
-      // );
-
+    
       blocTest<RegisterViewModel, RegisterState>(
         'handles server failure during image upload',
         build: () => registerViewModel,

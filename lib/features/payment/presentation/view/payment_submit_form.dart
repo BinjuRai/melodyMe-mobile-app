@@ -34,25 +34,7 @@ class _PaymentFormViewState extends State<PaymentFormView> {
     super.dispose();
   }
 
-  // void _submitPayment() {
-  //   if (_formKey.currentState!.validate()) {
-  //     final payment = PaymentEntity(
-  //       id: '',
-  //       userId: '', // Replace with actual logged-in user ID
-  //       username: _usernameController.text,
-  //       courseId: widget.lesson.courseId!,
-  //       courseTitle: widget.lesson.name,
-  //       lessonId: widget.lesson.id,
-  //       lessonTitle: widget.lesson.name,
-  //       pricePaid: widget.lesson.price,
-  //       paymentMethod: _selectedMethod,
-  //       paymentStatus: 'pending',
-  //       paymentDate: DateTime.now(),
-  //     );
 
-  //     context.read<PaymentBloc>().add(CreatePayment(payment));
-  //   }
-  // }
   void _submitPayment() async {
     if (_formKey.currentState!.validate()) {
       // Step 1: Get the token
@@ -112,20 +94,7 @@ class _PaymentFormViewState extends State<PaymentFormView> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: BlocConsumer<PaymentBloc, PaymentState>(
-          // listener: (context, state) {
-          //   if (state is PaymentCreated) {
-          //     ScaffoldMessenger.of(context).showSnackBar(
-          //       const SnackBar(
-          //         content: Text('Payment created successfully!'),
-          //       ),
-          //     );
-          //     Navigator.pop(context); // Go back after submission
-          //   } else if (state is PaymentError) {
-          //     ScaffoldMessenger.of(context).showSnackBar(
-          //       SnackBar(content: Text('Error: ${state.message}')),
-          //     );
-          //   }
-          // },
+       
           listener: (context, state) {
             if (state is PaymentCreated) {
               ScaffoldMessenger.of(context).showSnackBar(
