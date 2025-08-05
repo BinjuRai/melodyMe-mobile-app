@@ -1,0 +1,67 @@
+import 'dart:io';
+import 'package:batch34_b/core/error/failure.dart';
+import 'package:batch34_b/features/auth/data/data_source/local_datasource/user_local_datasource.dart';
+import 'package:batch34_b/features/auth/domain/entity/user_entity.dart';
+import 'package:batch34_b/features/auth/domain/repository/user_repository.dart';
+import 'package:dartz/dartz.dart';
+
+
+class UserLocalRepository implements IUserRepository {
+  final UserLocalDatasource _userLocalDatasource;
+
+  UserLocalRepository({required UserLocalDatasource userLocalDatasource})
+    : _userLocalDatasource = userLocalDatasource;
+
+  @override
+  Future<Either<Failure, UserEntity>> getCurrentUser() async {
+    // TODO: implement loginStudent
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, String>> loginUser(
+    String username,
+    String password,
+  ) async {
+    try {
+      final result = await _userLocalDatasource.loginUser(username, password);
+      return Right(result);
+    } catch (e) {
+      return Left(LocalDatabaseFailure(message: "Failed to login: $e"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> registerUser(UserEntity student) async {
+    try {
+      await _userLocalDatasource.registerUser(student);
+      return Right(null);
+    } catch (e) {
+      return Left(LocalDatabaseFailure(message: "Failed to register: $e"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> uploadProfilePicture(File file) {
+    // TODO: implement uploadProfilePicture
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, void>> changePassword(String oldPassword, String newPassword) {
+    // TODO: implement changePassword
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, UserEntity>> getProfile() {
+    // TODO: implement getProfile
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, UserEntity>> updateProfile(Map<String, dynamic> updates) {
+    // TODO: implement updateProfile
+    throw UnimplementedError();
+  }
+}

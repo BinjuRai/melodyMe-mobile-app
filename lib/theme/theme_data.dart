@@ -8,13 +8,19 @@ ThemeData getApplicationTheme() {
     fontFamily: 'Playfair_Display',
 
     elevatedButtonTheme: ElevatedButtonThemeData(
+      // style: ElevatedButton.styleFrom(
+      //   textStyle: const TextStyle(
+      //     fontSize: 16,
+      //     color: Colors.white,
+      //     fontWeight: FontWeight.w500,
+      //   ),
+      //   backgroundColor: Color(0x222740),
+      //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      // ),
       style: ElevatedButton.styleFrom(
-        textStyle: const TextStyle(
-          fontSize: 16,
-          color: Colors.white,
-          fontWeight: FontWeight.w500,
-        ),
-        backgroundColor: Color(0x222740),
+        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        foregroundColor: Colors.white, // Text color here
+        backgroundColor: const Color(0xFF222740),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     ),
